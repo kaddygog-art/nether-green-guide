@@ -1,0 +1,632 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px system-ui,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Nether Green Field Guide</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caprasimo&family=Figtree:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: an illustrated field-guide "book" — one chapter visible at a time, turned like pages; each chapter opens on a painted landscape banner. */
+:root{
+  --bg:#E6EEDB; --paper:#FCFDF7; --ink:#1E2A1F; --muted:#5A6A55; --line:#D3DEC6;
+  --moss:#2F6B33; --fern:#7FB04F; --heather:#8E4F92; --sun:#EFA92E; --brook:#2F7F99; --stone:#D8C49C;
+  --sky:#CFE7EC; --cloud:#F6FBFA; --hill1:#B9D3A1; --hill2:#86B46A; --hill3:#4E8A45;
+  --tree1:#2E6532; --tree2:#3F7C3A; --trunk:#6B4B32; --roof:#8E4F92; --wall:#EADDBF;
+  --font-display:"Caprasimo", "Cooper Black", Georgia, serif;
+  --font-body:"Figtree", "Segoe UI", system-ui, sans-serif;
+  --font-mono:"DM Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0F1712; --paper:#18221A; --ink:#E7EFE1; --muted:#A2B39C; --line:#2B3A2D;
+  --moss:#86C978; --fern:#5E9A44; --heather:#D29BD5; --sun:#F0CF7A; --brook:#6CC0D8; --stone:#6F6550;
+  --sky:#1C3440; --cloud:#2C4652; --hill1:#2D4A36; --hill2:#25402C; --hill3:#1B3222;
+  --tree1:#13281A; --tree2:#1A3522; --trunk:#3A2B20; --roof:#6E3E72; --wall:#5C5444;
+  color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --bg:#0F1712; --paper:#18221A; --ink:#E7EFE1; --muted:#A2B39C; --line:#2B3A2D;
+  --moss:#86C978; --fern:#5E9A44; --heather:#D29BD5; --sun:#F0CF7A; --brook:#6CC0D8; --stone:#6F6550;
+  --sky:#1C3440; --cloud:#2C4652; --hill1:#2D4A36; --hill2:#25402C; --hill3:#1B3222;
+  --tree1:#13281A; --tree2:#1A3522; --trunk:#3A2B20; --roof:#6E3E72; --wall:#5C5444;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:16px;line-height:1.55;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:20px 48px;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+a{color:var(--brook);text-underline-offset:2px}
+button{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--sun);outline-offset:2px;border-radius:6px}
+
+/* background greenery */
+.greenery{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.greenery svg{position:absolute;opacity:.55}
+.greenery .g1{width:340px;left:-90px;top:-40px;transform:rotate(-18deg)}
+.greenery .g2{width:300px;right:-80px;bottom:-60px;transform:rotate(160deg)}
+.greenery .g3{width:200px;right:-50px;top:120px;transform:rotate(200deg);opacity:.35}
+
+.wrap{position:relative;z-index:1;max-width:1040px;margin:0 auto;display:flex;flex-direction:column;gap:14px}
+
+/* tabs */
+.tabs{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(8px);padding-block:8px;margin-inline:-4px}
+.tabs-scroll{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding:2px 4px}
+.tabs-scroll::-webkit-scrollbar{display:none}
+.tab{flex:0 0 auto;border:1.5px solid var(--line);background:var(--paper);border-radius:999px;padding:6px 14px;font-size:14px;font-weight:600;cursor:pointer;color:var(--muted);transition:background .2s,color .2s,border-color .2s}
+.tab:hover{border-color:var(--fern);color:var(--ink)}
+.tab[aria-current="true"]{background:var(--moss);border-color:var(--moss);color:var(--paper)}
+
+/* book */
+.book{background:var(--paper);border-radius:26px;box-shadow:0 1px 0 var(--line),0 24px 60px -30px color-mix(in srgb,var(--moss) 55%,transparent);overflow:hidden;border:1px solid var(--line);scroll-margin-top:70px}
+.page{display:block}
+.page.in-next{animation:turnNext .5s cubic-bezier(.2,.7,.2,1);transform-origin:left center}
+.page.in-prev{animation:turnPrev .5s cubic-bezier(.2,.7,.2,1);transform-origin:right center}
+@keyframes turnNext{from{transform:perspective(1800px) rotateY(-10deg) translateX(30px);opacity:.35}to{transform:none;opacity:1}}
+@keyframes turnPrev{from{transform:perspective(1800px) rotateY(10deg) translateX(-30px);opacity:.35}to{transform:none;opacity:1}}
+
+.scene{position:relative;height:clamp(150px,26vw,250px);background:var(--sky);overflow:hidden}
+.scene svg.land{position:absolute;inset:0;width:100%;height:100%;display:block}
+.page-cover .scene{height:clamp(220px,40vw,380px)}
+.leaf{position:absolute;width:22px;height:22px;top:0;animation:fall 11s linear infinite}
+.leaf path{fill:var(--fern)}
+.leaf:nth-child(odd) path{fill:var(--sun)}
+@keyframes fall{0%{transform:translate(0,10px) rotate(0)}50%{transform:translate(40px,120px) rotate(160deg)}100%{transform:translate(-10px,260px) rotate(320deg);opacity:0}}
+
+.page-body{padding:clamp(22px,4vw,44px);display:flex;flex-direction:column;gap:18px}
+.eyebrow{font-family:var(--font-mono);font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--heather);margin:0}
+h1,h2{font-family:var(--font-display);font-weight:400;line-height:1.05;margin:0;text-wrap:balance;color:var(--moss)}
+h1{font-size:clamp(44px,8vw,88px)}
+h2{font-size:clamp(32px,5vw,52px)}
+.lead{font-size:clamp(17px,2vw,19px);max-width:62ch;margin:0;color:var(--ink)}
+.sub{font-family:var(--font-body);font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:10px 0 0;display:flex;align-items:center;gap:10px}
+.sub::after{content:"";flex:1;height:1.5px;background:var(--line)}
+
+/* cover */
+.cover-title{display:flex;flex-direction:column;gap:12px}
+.postcode{display:inline-flex;align-items:center;gap:8px;align-self:flex-start;font-family:var(--font-mono);font-size:13px;background:color-mix(in srgb,var(--sun) 22%,var(--paper));color:var(--ink);border-radius:999px;padding:5px 12px}
+.contents{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px}
+.ch{display:flex;align-items:center;gap:12px;text-align:left;border:1.5px solid var(--line);background:var(--paper);border-radius:16px;padding:12px 14px;cursor:pointer;transition:transform .2s,border-color .2s}
+.ch:hover{transform:translateY(-2px);border-color:var(--fern)}
+.ch b{display:block;font-size:16px}
+.ch small{display:block;color:var(--muted);font-size:13px;line-height:1.35}
+.ch .num{font-family:var(--font-mono);font-size:12px;color:var(--muted)}
+.hint{color:var(--muted);font-size:14px;margin:0}
+
+/* chips + cards */
+.chip{flex:0 0 auto;width:42px;height:42px;border-radius:14px;display:grid;place-items:center;background:color-mix(in srgb,var(--tone) 20%,var(--paper));color:var(--tone)}
+.chip svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.t-moss{--tone:var(--moss)} .t-heather{--tone:var(--heather)} .t-sun{--tone:var(--sun)} .t-brook{--tone:var(--brook)} .t-fern{--tone:var(--fern)}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:14px}
+.card{min-width:0;display:flex;flex-direction:column;gap:8px;background:color-mix(in srgb,var(--tone) 6%,var(--paper));border:1.5px solid color-mix(in srgb,var(--tone) 22%,var(--line));border-radius:18px;padding:16px 18px}
+.card-top{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.tag{font-family:var(--font-mono);font-size:12px;color:var(--muted);text-align:right}
+.card h3{margin:2px 0 0;font-size:19px;line-height:1.25}
+.card p{margin:0;font-size:15px}
+.addr{font-family:var(--font-mono);font-size:12.5px;color:var(--muted);margin-top:auto !important;padding-top:4px}
+.badge{display:inline-block;font-size:11.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;background:var(--tone);color:var(--paper);padding:2px 8px;border-radius:6px;margin-left:6px;vertical-align:3px}
+
+/* walk map */
+.map{overflow-x:auto;border-radius:18px;background:color-mix(in srgb,var(--fern) 12%,var(--paper));border:1.5px solid var(--line)}
+.map svg{display:block;min-width:640px;width:100%;height:auto}
+.map text{font-family:var(--font-body);font-size:19px;font-weight:600;fill:var(--ink)}
+.map .small{font-size:15px;font-weight:500;fill:var(--muted)}
+
+/* drive-time bars */
+.drives{display:flex;flex-direction:column;gap:10px}
+.drive{display:grid;grid-template-columns:minmax(120px,190px) 1fr;gap:12px;align-items:center}
+.drive span{font-weight:600;font-size:15px}
+.bar{position:relative;height:30px;border-radius:8px;background:color-mix(in srgb,var(--line) 60%,transparent)}
+.bar i{position:absolute;inset:0 auto 0 0;width:calc(var(--m) / 45 * 100%);border-radius:8px;background:linear-gradient(90deg,var(--fern),var(--heather));display:flex;align-items:center;justify-content:flex-end;padding-right:8px;font-style:normal;font-family:var(--font-mono);font-size:12.5px;color:#fff;font-variant-numeric:tabular-nums}
+.axis{display:grid;grid-template-columns:minmax(120px,190px) 1fr;gap:12px;font-family:var(--font-mono);font-size:12px;color:var(--muted)}
+.axis div{display:flex;justify-content:space-between}
+
+/* essentials */
+.big{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+.big .card{flex-direction:row;align-items:center;gap:16px}
+.big strong{font-family:var(--font-display);font-weight:400;font-size:44px;line-height:1;color:var(--tone)}
+.sources{font-size:13px;color:var(--muted);margin:0}
+
+/* pager */
+.pager{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:6px 2px}
+.pbtn{display:inline-flex;align-items:center;gap:8px;border:none;background:var(--moss);color:var(--paper);border-radius:999px;padding:10px 18px;font-weight:700;cursor:pointer;min-width:0}
+.pbtn:disabled{opacity:.35;cursor:default}
+.pbtn svg{width:18px;height:18px;stroke:currentColor;stroke-width:2.4;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.dots{display:flex;gap:7px;align-items:center;flex-wrap:wrap;justify-content:center}
+.dot{width:10px;height:10px;border-radius:50%;border:none;padding:0;background:var(--line);cursor:pointer}
+.dot[aria-current="true"]{background:var(--heather);transform:scale(1.25)}
+.count{font-family:var(--font-mono);font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+
+@media (max-width:560px){
+  .pbtn .lbl{display:none}
+  .drive,.axis{grid-template-columns:110px 1fr}
+}
+@media (prefers-reduced-motion:reduce){
+  .page.in-next,.page.in-prev{animation:none}
+  .leaf{animation:none}
+  .ch,.tab{transition:none}
+}
+
+/* photos */
+.card.has-photo{padding-top:0;overflow:hidden}
+.card .photo{margin:0 -18px 6px;position:relative;aspect-ratio:16/10;max-width:none;background:var(--hill1)}
+.photo img,.wide img{width:100%;height:100%;object-fit:cover;display:block;max-width:100%}
+figure{margin:0}
+figcaption{position:absolute;right:8px;bottom:8px;max-width:calc(100% - 16px);font-size:10.5px;line-height:1.3;background:rgba(15,23,18,.62);border-radius:6px;padding:2px 7px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+figcaption a{color:#fff;text-decoration:none}
+figcaption a:hover{text-decoration:underline}
+.wide{position:relative;border-radius:18px;overflow:hidden;aspect-ratio:16/9;max-width:100%;background:var(--hill1)}
+.wide.hero{aspect-ratio:21/9}
+.strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+@media (max-width:560px){.wide.hero{aspect-ratio:4/3}}
+
+/* house guide */
+mark.fill{background:color-mix(in srgb,var(--sun) 30%,transparent);color:inherit;border-bottom:1.5px dashed var(--sun);padding:0 3px;border-radius:3px}
+.cover-photo{border-radius:20px;overflow:hidden;aspect-ratio:21/9;max-width:100%}
+.cover-photo img{width:100%;height:100%;object-fit:cover;display:block}
+.gallery{display:grid;grid-template-columns:2fr 1fr;grid-template-rows:1fr 1fr;gap:12px;aspect-ratio:16/8;max-width:100%}
+.gallery figure{position:relative;border-radius:18px;overflow:hidden;min-height:0;background:var(--hill1)}
+.gallery .g-main{grid-row:span 2}
+.gallery img,.arrive-photos img{width:100%;height:100%;object-fit:cover;display:block;max-width:100%}
+figcaption.own{position:absolute;left:10px;bottom:10px;right:auto;max-width:calc(100% - 20px);white-space:normal;font-size:12.5px;color:#fff;padding:4px 9px}
+.glance{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}
+.g-tile{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:16px;background:color-mix(in srgb,var(--tone) 9%,var(--paper));border:1.5px solid color-mix(in srgb,var(--tone) 25%,var(--line));min-width:0}
+.g-tile small{display:block;font-family:var(--font-mono);font-size:11.5px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.g-tile b{display:block;font-size:15.5px;line-height:1.3}
+.arrive{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:20px;align-items:start}
+.steps{margin:0;padding:0;list-style:none;counter-reset:st;display:flex;flex-direction:column;gap:12px}
+.steps li{counter-increment:st;position:relative;padding:4px 0 4px 50px;min-height:38px}
+.steps li::before{content:counter(st);position:absolute;left:0;top:0;width:36px;height:36px;border-radius:50%;background:var(--moss);color:var(--paper);display:grid;place-items:center;font-family:var(--font-display);font-size:18px}
+.arrive-photos{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.arrive-photos figure{position:relative;border-radius:16px;overflow:hidden;aspect-ratio:3/4;max-width:100%}
+.rules{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px}
+.rules li{display:flex;align-items:center;gap:12px;padding:8px 12px;border-radius:14px;border:1.5px solid var(--line);background:var(--paper);min-width:0}
+.rules .chip{width:36px;height:36px;border-radius:12px}
+.checkout{display:flex;flex-direction:column;gap:8px;padding:18px 20px;border-radius:18px;background:color-mix(in srgb,var(--heather) 7%,var(--paper));border:1.5px solid color-mix(in srgb,var(--heather) 22%,var(--line))}
+.checkout p{margin:0 0 4px}
+.checkout label{display:flex;gap:10px;align-items:flex-start;cursor:pointer}
+.checkout input{width:18px;height:18px;margin-top:3px;accent-color:var(--moss);flex:0 0 auto}
+.checkout input:checked + *{opacity:.6}
+.help{display:flex;gap:16px;align-items:center;padding:18px 20px;border-radius:18px;background:color-mix(in srgb,var(--moss) 10%,var(--paper));border:1.5px solid color-mix(in srgb,var(--moss) 25%,var(--line))}
+.help h3{margin:0 0 2px;font-size:19px}.help p{margin:0}
+@media (max-width:700px){.arrive{grid-template-columns:1fr}.gallery{grid-template-columns:1fr 1fr;grid-template-rows:auto auto;aspect-ratio:auto}.gallery .g-main{grid-column:span 2;grid-row:auto;aspect-ratio:4/3}.gallery figure:not(.g-main){aspect-ratio:1/1}.cover-photo{aspect-ratio:4/3}}
+</style>
+</head>
+<body>
+
+
+<div class="greenery" aria-hidden="true">
+  <svg class="g1" viewBox="0 0 200 200"><path d="M20 180 C40 100 100 40 185 20" stroke="var(--hill3)" stroke-width="4" fill="none"/><g fill="var(--hill2)"><ellipse cx="60" cy="130" rx="26" ry="11" transform="rotate(-50 60 130)"/><ellipse cx="88" cy="96" rx="26" ry="11" transform="rotate(-40 88 96)"/><ellipse cx="120" cy="66" rx="24" ry="10" transform="rotate(-30 120 66)"/><ellipse cx="152" cy="42" rx="20" ry="9" transform="rotate(-20 152 42)"/></g><g fill="var(--hill1)"><ellipse cx="78" cy="150" rx="24" ry="10" transform="rotate(20 78 150)"/><ellipse cx="108" cy="116" rx="24" ry="10" transform="rotate(25 108 116)"/><ellipse cx="140" cy="84" rx="22" ry="9" transform="rotate(30 140 84)"/></g></svg>
+  <svg class="g2" viewBox="0 0 200 200"><path d="M20 180 C40 100 100 40 185 20" stroke="var(--hill3)" stroke-width="4" fill="none"/><g fill="var(--hill2)"><ellipse cx="60" cy="130" rx="26" ry="11" transform="rotate(-50 60 130)"/><ellipse cx="88" cy="96" rx="26" ry="11" transform="rotate(-40 88 96)"/><ellipse cx="120" cy="66" rx="24" ry="10" transform="rotate(-30 120 66)"/></g><g fill="var(--hill1)"><ellipse cx="78" cy="150" rx="24" ry="10" transform="rotate(20 78 150)"/><ellipse cx="108" cy="116" rx="24" ry="10" transform="rotate(25 108 116)"/><ellipse cx="140" cy="84" rx="22" ry="9" transform="rotate(30 140 84)"/></g></svg>
+  <svg class="g3" viewBox="0 0 200 200"><g fill="var(--heather)" opacity=".6"><circle cx="40" cy="60" r="8"/><circle cx="58" cy="44" r="7"/><circle cx="70" cy="66" r="9"/><circle cx="90" cy="50" r="6"/><circle cx="104" cy="72" r="8"/></g><path d="M50 200 L60 70 M80 200 L90 60 M110 200 L104 80" stroke="var(--hill3)" stroke-width="3" fill="none"/></svg>
+</div>
+
+<div class="wrap">
+  <nav class="tabs" aria-label="Chapters"><div class="tabs-scroll" id="tabs"></div></nav>
+
+  <main class="book" id="book" aria-live="polite">
+
+    <!-- COVER -->
+    <section class="page page-cover" data-name="welcome" data-label="Welcome">
+      <div class="scene" data-scene="cover" aria-hidden="true">
+        <svg class="leaf" style="left:12%;animation-delay:-2s" viewBox="0 0 24 24"><path d="M3 21C3 10 10 3 21 3c0 11-7 18-18 18z"/></svg>
+        <svg class="leaf" style="left:34%;animation-delay:-6s" viewBox="0 0 24 24"><path d="M3 21C3 10 10 3 21 3c0 11-7 18-18 18z"/></svg>
+        <svg class="leaf" style="left:58%;animation-delay:-4s" viewBox="0 0 24 24"><path d="M3 21C3 10 10 3 21 3c0 11-7 18-18 18z"/></svg>
+        <svg class="leaf" style="left:80%;animation-delay:-9s" viewBox="0 0 24 24"><path d="M3 21C3 10 10 3 21 3c0 11-7 18-18 18z"/></svg>
+      </div>
+      <div class="page-body">
+        <div class="cover-title">
+          <p class="eyebrow">A guest's field guide</p>
+          <h1>Welcome to Nether Green</h1>
+          <span class="postcode">Sheffield · S11 7EJ</span>
+        </div>
+        <figure class="cover-photo"><img src="images/house-living.jpg" alt="The bright sitting room of the house"></figure>
+        <p class="lead">You're staying in a quiet, leafy corner of south-west Sheffield. The woods of the Porter Valley are minutes away on foot, the city centre is 15 minutes by car, and the moors of the Peak District start about 20 minutes up the road. Here's where to eat, walk and explore.</p>
+        <div class="contents" id="contents"></div>
+        <p class="hint">Swipe, use the arrow keys, or tap a chapter to turn the page. Start with <b>Your home</b> for check-in and Wi-Fi.</p>
+      </div>
+    </section>
+
+
+    <!-- YOUR HOME -->
+    <section class="page" data-name="home" data-label="Your home" data-blurb="Check-in, Wi-Fi, heating and house rules" data-g="home" data-t="t-moss" hidden>
+      <div class="scene" data-scene="home" aria-hidden="true"></div>
+      <div class="page-body">
+        <p class="eyebrow">Chapter 1</p>
+        <h2>Your home in Nether Green</h2>
+        <p class="lead">Everything you need to let yourself in and settle into your home. If anything isn't clear, message us at any time.</p>
+
+        <div class="gallery">
+          <figure class="g-main"><img src="images/house-living.jpg" alt="The sitting room, with a grey sofa, round coffee tables and a dining table by the window"><figcaption class="own">The sitting room. The heating thermostat is on the wall beside the door.</figcaption></figure>
+          <figure><img src="images/house-bedroom.jpg" alt="The bedroom, with a black metal double bed and a window onto the garden"><figcaption class="own">The bedroom, looking onto the garden</figcaption></figure>
+          <figure><img src="images/house-dining.jpg" alt="The dining table with four chairs, flowers and the wall-mounted smart TV"><figcaption class="own">Dining corner and smart TV</figcaption></figure>
+        </div>
+
+        <div class="glance">
+          <div class="g-tile t-moss"><span class="chip"><i data-g="key"></i></span><div><small>Check-in</small><b>From <mark class="fill">3:00 pm</mark></b></div></div>
+          <div class="g-tile t-heather"><span class="chip"><i data-g="key"></i></span><div><small>Check-out</small><b>By <mark class="fill">11:00 am</mark></b></div></div>
+          <div class="g-tile t-brook"><span class="chip"><i data-g="wifi"></i></span><div><small>Wi-Fi</small><b>Scan the QR code on the router</b></div></div>
+          <div class="g-tile t-sun"><span class="chip"><i data-g="flame"></i></span><div><small>Heating</small><b>Thermostat in the sitting room</b></div></div>
+        </div>
+
+        <h3 class="sub">Arriving: self check-in</h3>
+        <div class="arrive">
+          <ol class="steps">
+            <li><b>Find the house.</b> From the road, walk up the gravel path between the two tall hedges. There’s free parking on the road outside.</li>
+            <li><b>Go to your door.</b> Yours is <b>No. 6</b>.</li>
+            <li><b>Get the keys.</b> The keys are in a key safe <mark class="fill">beside the door</mark>. We'll send you the code in your Airbnb messages on the day you arrive.</li>
+            <li><b>Settle in.</b> Connect to the Wi-Fi, set the heating to suit you and make yourself at home.</li>
+            <li><b>Let us know you're in.</b> A quick message on Airbnb helps us know you arrived safely.</li>
+          </ol>
+          <div class="arrive-photos">
+            <figure><img src="images/house-extra1.jpg" alt="The gravel path leading up between two tall hedges to the house"><figcaption class="own">Walk up between the hedges</figcaption></figure>
+            <figure><img src="images/house-extra2.jpg" alt="The side of the house with a brick archway and path"><figcaption class="own">The side of the house</figcaption></figure>
+          </div>
+        </div>
+
+        <h3 class="sub">Around the house</h3>
+        <div class="cards">
+          <article class="card t-brook"><div class="card-top"><span class="chip"><i data-g="wifi"></i></span><span class="tag">Wi-Fi</span></div><h3>Getting online</h3><p>The router is in the sitting room. Scan the QR code on it with your phone camera to join. The network name and password are also printed on the router's label.</p><p class="addr">Router · sitting room</p></article>
+          <article class="card t-sun"><div class="card-top"><span class="chip"><i data-g="flame"></i></span><span class="tag">Heating</span></div><h3>Heating &amp; hot water</h3><p>The heating is controlled by the thermostat on the sitting-room wall, beside the door. Set the temperature you like. Please turn it down when you go out and when you leave.</p><p class="addr">Thermostat · sitting room</p></article>
+          <article class="card t-heather"><div class="card-top"><span class="chip"><i data-g="washer"></i></span><span class="tag">Laundry</span></div><h3>Washing machine</h3><p>You're welcome to use the washing machine in <mark class="fill">the kitchen</mark>. Detergent is <mark class="fill">under the sink</mark>. Please don't leave washing in the drum when you check out.</p><p class="addr">Drying: <mark class="fill">airer / radiators</mark></p></article>
+          <article class="card t-fern"><div class="card-top"><span class="chip"><i data-g="bin"></i></span><span class="tag">Bins</span></div><h3>Rubbish &amp; recycling</h3><p>The bins are outside <mark class="fill">by the side path</mark>. Spare bin bags are <mark class="fill">under the kitchen sink</mark>. In Sheffield the black bin is for general waste, the blue bin for paper and card, and the brown bin for glass, cans and plastic bottles.</p><p class="addr">Please empty indoor bins before you leave</p></article>
+          <article class="card t-moss"><div class="card-top"><span class="chip"><i data-g="tv"></i></span><span class="tag">Entertainment</span></div><h3>Smart TV</h3><p>The TV in the sitting room has Netflix and other apps. Sign in with your own accounts, and please sign out before you leave.</p><p class="addr">Remote · coffee table</p></article>
+          <article class="card t-sun"><div class="card-top"><span class="chip"><i data-g="cup"></i></span><span class="tag">Kitchen</span></div><h3>Kitchen</h3><p>The kitchen has <mark class="fill">a cooker, fridge, kettle, toaster</mark>, pots, pans, plates and cutlery. Tea, coffee and basics are there to get you started.</p><p class="addr">Help yourself</p></article>
+          <article class="card t-heather"><div class="card-top"><span class="chip"><i data-g="bed"></i></span><span class="tag">Linen</span></div><h3>Bedding &amp; towels</h3><p>The bed is made up with fresh linen, and clean towels are <mark class="fill">in the bathroom</mark>. Extra blankets are <mark class="fill">in the wardrobe</mark>.</p><p class="addr">Fresh for every stay</p></article>
+          <article class="card t-brook"><div class="card-top"><span class="chip"><i data-g="bolt"></i></span><span class="tag">Power</span></div><h3>Electricity</h3><p>If the power trips, the fuse box is in the room close to the front door. Flip the switch that's down back up. If it keeps tripping, message us.</p><p class="addr">Fuse box · room by the front door</p></article>
+        </div>
+
+        <h3 class="sub">House rules</h3>
+        <ul class="rules">
+          <li><span class="chip t-heather"><i data-g="no"></i></span>No smoking or vaping inside the house.</li>
+          <li><span class="chip t-heather"><i data-g="no"></i></span>No parties or events.</li>
+          <li><span class="chip t-brook"><i data-g="moon"></i></span>Quiet hours are 10 pm to 8 am. It's a residential street with neighbours close by.</li>
+          <li><span class="chip t-moss"><i data-g="home"></i></span>Only guests on the booking may stay overnight.</li>
+          <li><span class="chip t-heather"><i data-g="paw"></i></span>No pets, please.</li>
+        </ul>
+
+        <h3 class="sub">Checking out</h3>
+        <div class="checkout">
+          <p>Check-out is by <mark class="fill">11:00 am</mark>. Before you go:</p>
+          <label><input type="checkbox" id="co-1"> Wash up, or load the dishes by the sink</label>
+          <label><input type="checkbox" id="co-2"> Put rubbish and recycling in the outside bins</label>
+          <label><input type="checkbox" id="co-3"> Turn the heating down at the thermostat</label>
+          <label><input type="checkbox" id="co-4"> Close the windows and switch off the lights</label>
+          <label><input type="checkbox" id="co-5"> Sign out of your accounts on the TV</label>
+          <label><input type="checkbox" id="co-6"> Lock up, return the keys to the key safe and scramble the code</label>
+          <label><input type="checkbox" id="co-7"> Send us a quick message to say you've left</label>
+        </div>
+
+        <div class="help t-moss">
+          <span class="chip"><i data-g="phone"></i></span>
+          <div><h3>Need us?</h3><p>Message us on Airbnb at any time and we’ll get back to you as quickly as we can. In an emergency, call 999.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- GETTING AROUND -->
+    <section class="page" data-name="around" data-label="Getting around" data-blurb="Buses, taxis and drive times" data-g="bus" data-t="t-brook" hidden>
+      <div class="scene" data-scene="around" aria-hidden="true"></div>
+      <div class="page-body">
+        <p class="eyebrow">Chapter 1</p>
+        <h2>Getting around</h2>
+        <p class="lead">The 120 bus runs along Fulwood Road, through Nether Green, Ranmoor and Broomhill, into the city centre. For the Peak District, a car makes life easiest.</p>
+        <div class="cards">
+          <article class="card has-photo t-brook"><figure class="photo"><img src="images/t-bus.jpg" alt="A First South Yorkshire bus in Sheffield" loading="lazy" decoding="async"><figcaption><a href="https://commons.wikimedia.org/wiki/File:First_South_Yorkshire_bus_on_Hathersage_Road_-_geograph.org.uk_-_8137884.jpg" target="_blank" rel="noopener">Photo: JThomas · CC BY-SA 2.0</a></figcaption></figure><div class="card-top"><span class="chip"><i data-g="bus"></i></span><span class="tag">Bus 120</span></div><h3>Into town by bus</h3><p>Stops at Fulwood Road/Nethergreen Road and Fulwood Road/Storth Lane. Check live times before you leave.</p><p class="addr"><a href="https://bustimes.org/stops/370020646" target="_blank" rel="noopener">bustimes.org</a> · <a href="https://www.travelsouthyorkshire.com" target="_blank" rel="noopener">Travel South Yorkshire</a></p></article>
+          <article class="card has-photo t-sun"><figure class="photo"><img src="images/t-taxi.jpg" alt="The taxi rank at Sheffield station" loading="lazy" decoding="async"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Taxi_rank,_Sheffield_Station_-_geograph.org.uk_-_2572867.jpg" target="_blank" rel="noopener">Photo: JThomas · CC BY-SA 2.0</a></figcaption></figure><div class="card-top"><span class="chip"><i data-g="car"></i></span><span class="tag">Taxi</span></div><h3>Taxis</h3><p>Uber works across Sheffield, and City Taxis is the big local firm.</p><p class="addr">Station to the house · about 15 min</p></article>
+          <article class="card has-photo t-heather"><figure class="photo"><img src="images/t-train-b.jpg" alt="Sheffield railway station and Sheaf Square fountains" loading="lazy" decoding="async"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Sheffield_station_MMB_21.jpg" target="_blank" rel="noopener">Photo: mattbuck · CC BY-SA 3.0</a></figcaption></figure><div class="card-top"><span class="chip"><i data-g="train"></i></span><span class="tag">Rail</span></div><h3>Sheffield station</h3><p>In the city centre, with direct trains to London, Manchester, Leeds and York.</p><p class="addr">About 15 min by taxi</p></article>
+          <article class="card has-photo t-moss"><figure class="photo"><img src="images/t-walk.jpg" alt="Walkers with a dog in Whiteley Woods" loading="lazy" decoding="async"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Dog_walkers_in_Whiteley_Woods_-_geograph.org.uk_-_5695540.jpg" target="_blank" rel="noopener">Photo: Neil Theasby · CC BY-SA 2.0</a></figcaption></figure><div class="card-top"><span class="chip"><i data-g="boot"></i></span><span class="tag">On foot</span></div><h3>Walking</h3><p>Ecclesall Road, Broomhill and Endcliffe Park are each a 25 to 35 minute walk, mostly downhill on the way there.</p><p class="addr">Porter Valley woods · a few minutes</p></article>
+        </div>
+      </div>
+    </section>
+
+    <!-- EAT NEARBY -->
+    <section class="page" data-name="eat" data-label="Eat nearby" data-blurb="Restaurants, pubs and cafés close by" data-g="fork" data-t="t-sun" hidden>
+      <div class="scene" data-scene="eat" aria-hidden="true"></div>
+      <div class="page-body">
+        <p class="eyebrow">Chapter 2</p>
+        <h2>Eat &amp; drink nearby</h2>
+        <p class="lead">For a special meal on your doorstep, book Rafters. For a proper local pint, walk to the Rising Sun. Ecclesall Road and Sharrow Vale, ten minutes away, have the widest choice.</p>
+
+        <h3 class="sub">Within walking distance</h3>
+        <div class="cards">
+          <article class="card t-heather"><div class="card-top"><span class="chip"><i data-g="fork"></i></span><span class="tag">Modern British</span></div><h3>Rafters <span class="badge">Book ahead</span></h3><p>The neighbourhood's best restaurant: 2 AA Rosettes and listed in the Michelin Guide.</p><p class="addr">220 Oakbrook Road · S11 7ED</p></article>
+          <article class="card has-photo t-sun"><figure class="photo"><img src="images/rising-sun.jpg" alt="The Rising Sun" loading="lazy" decoding="async"><figcaption><a href="https://commons.wikimedia.org/wiki/File:%22The_Rising_Sun%22_at_Nether_Green,_Sheffield_-_geograph.org.uk_-_2532398.jpg" target="_blank" rel="noopener">Photo: Neil Theasby · CC BY-SA 2.0</a></figcaption></figure><div class="card-top"><span class="chip"><i data-g="pint"></i></span><span class="tag">Pub · Abbeydale tap</span></div><h3>The Rising Sun</h3><p>CAMRA West Sheffield Pub of the Year 2026, with around 11 real ales and good pub food. Kitchen hours are limited, so book.</p><p class="addr">471 Fulwood Road · S10 3QA</p></article>
+          <article class="card has-photo t-moss"><figure class="photo"><img src="images/ranmoor-inn.jpg" alt="Ranmoor Inn" loading="lazy" decoding="async"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Ranmoor_Inn,_Fulwood_Road,_Sheffield_-_geograph.org.uk_-_5657251.jpg" target="_blank" rel="noopener">Photo: Ian S · CC BY-SA 2.0</a></figcaption></figure><div class="card-top"><span class="chip"><i data-g="pint"></i></span><span class="tag">Traditional pub</span></div><h3>Ranmoor Inn</h3><p>A small, friendly real-ale local in Ranmoor.</p><p class="addr">330 Fulwood Road · S10 3GD</p></article>
+          <article class="card t-brook"><div class="card-top"><span class="chip"><i data-g="fork"></i></span><span class="tag">Bar &amp; kitchen</span></div><h3>West 10</h3><p>A relaxed spot for drinks and a bite on Fulwood Road.</p><p class="addr">Fulwood Road · Ranmoor</p></article>
+          <article class="card has-photo t-fern"><figure class="photo"><img src="images/forge-dam.jpg" alt="Forge Dam Café" loading="lazy" decoding="async"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Forge_Dam_in_Forge_Dam_Park,_Sheffield_-_geograph.org.uk_-_5662916.jpg" target="_blank" rel="noopener">Photo: Ian S · CC BY-SA 2.0</a></figcaption></figure><div class="card-top"><span class="chip"><i data-g="cup"></i></span><span class="tag">Café</span></div><h3>Forge Dam Café</h3><p>Tea and cake by the old mill pond at the top of the Porter Valley walk.</p><p class="addr">Forge Dam · Fulwood</p></article>
+        </div>
+
+        <h3 class="sub">Ecclesall Road &amp; Sharrow Vale · 10 min by car</h3>
+        <div class="strip"><figure class="wide"><img src="images/ecclesall-road.jpg" alt="Ecclesall Road" loading="lazy" decoding="async"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Ecclesall_Road,_Sheffield,_UK.jpg" target="_blank" rel="noopener">Photo: BCDS · CC BY-SA 4.0</a></figcaption></figure><figure class="wide"><img src="images/sharrow-vale.jpg" alt="Sharrow Vale Road" loading="lazy" decoding="async"><figcaption><a href="https://commons.wikimedia.org/wiki/File:A_trendy_corner_on_Sharrow_Vale_Road_Sheffield_-_geograph.org.uk_-_4824302.jpg" target="_blank" rel="noopener">Photo: Steve Fareham · CC BY-SA 2.0</a></figcaption></figure></div>
+        <div class="cards">
+          <article class="card t-heather"><div class="card-top"><span class="chip"><i data-g="fork"></i></span><span class="tag">Italian</span></div><h3>Nonna's</h3><p>A Sheffield favourite for more than 30 years.</p><p class="addr">537–541 Ecclesall Road</p></article>
+          <article class="card t-sun"><div class="card-top"><span class="chip"><i data-g="fork"></i></span><span class="tag">Indian</span></div><h3>Ashoka</h3><p>Open since 1967, and once named in The Times' top 10 Indian restaurants.</p><p class="addr">307 Ecclesall Road</p></article>
+          <article class="card t-moss"><div class="card-top"><span class="chip"><i data-g="fork"></i></span><span class="tag">Turkish grill</span></div><h3>Elif Kebab House</h3><p>Skewers cooked over charcoal, with breads made in house.</p><p class="addr">Ecclesall Road</p></article>
+          <article class="card t-brook"><div class="card-top"><span class="chip"><i data-g="fork"></i></span><span class="tag">Mexican</span></div><h3>Pellizco</h3><p>Small, lively and great for sharing plates.</p><p class="addr">Dyson Place · off Sharrow Vale Road</p></article>
+          <article class="card t-fern"><div class="card-top"><span class="chip"><i data-g="cup"></i></span><span class="tag">Café &amp; bakery</span></div><h3>Six and a Half</h3><p>Pastries, coffee and brunch, at two sites.</p><p class="addr">Dyson Place · 507 Ecclesall Road</p></article>
+          <article class="card t-heather"><div class="card-top"><span class="chip"><i data-g="pint"></i></span><span class="tag">Bar</span></div><h3>The Botanical Arms</h3><p>Handy for a drink after a wander round the Botanical Gardens.</p><p class="addr">507 Ecclesall Road · S11 8PR</p></article>
+        </div>
+      </div>
+    </section>
+
+    <!-- FURTHER -->
+    <section class="page" data-name="further" data-label="Worth the trip" data-blurb="Kelham Island and a special treat" data-g="pint" data-t="t-heather" hidden>
+      <div class="scene" data-scene="further" aria-hidden="true"></div>
+      <div class="page-body">
+        <p class="eyebrow">Chapter 3</p>
+        <h2>Worth the trip</h2>
+        <p class="lead">Kelham Island, just north of the city centre, is Sheffield's old steelmaking quarter. These days it's where the city goes to eat and drink. It's about 20 minutes by taxi, or take the 120 into town and walk 15 minutes.</p>
+        <div class="cards">
+          <article class="card t-sun"><div class="card-top"><span class="chip"><i data-g="fork"></i></span><span class="tag">Food hall</span></div><h3>Cutlery Works</h3><p>The largest food hall in the North, with 14 kitchens and 3 bars. Ideal for groups who can't agree.</p><p class="addr">Neepsend Lane · Kelham Island</p></article>
+          <article class="card t-heather"><div class="card-top"><span class="chip"><i data-g="fork"></i></span><span class="tag">Sardinian</span></div><h3>DOMO</h3><p>Award-winning Italian cooking. Its sister bar, Kelu, has a rooftop on the Krynkl containers.</p><p class="addr">Eagle Works · Kelham Island</p></article>
+          <article class="card has-photo t-moss"><figure class="photo"><img src="images/fat-cat.jpg" alt="The Fat Cat" loading="lazy" decoding="async"><figcaption><a href="https://commons.wikimedia.org/wiki/File:The_Fat_Cat,_Alma_Street,_Sheffield_-_geograph.org.uk_-_2552448.jpg" target="_blank" rel="noopener">Photo: Ian S · CC BY-SA 2.0</a></figcaption></figure><div class="card-top"><span class="chip"><i data-g="pint"></i></span><span class="tag">Historic pub</span></div><h3>The Fat Cat</h3><p>A Grade II-listed real-ale pub next door to Kelham Island Museum.</p><p class="addr">Kelham Island</p></article>
+          <article class="card has-photo t-brook"><figure class="photo"><img src="images/kelham-tavern.jpg" alt="Kelham Island Tavern" loading="lazy" decoding="async"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Kelham_Island_Tavern_-_geograph.org.uk_-_4770329.jpg" target="_blank" rel="noopener">Photo: Ian S · CC BY-SA 2.0</a></figcaption></figure><div class="card-top"><span class="chip"><i data-g="pint"></i></span><span class="tag">Ale house</span></div><h3>Kelham Island Tavern</h3><p>A much-awarded ale house with a lovely beer garden.</p><p class="addr">Kelham Island</p></article>
+          <article class="card t-fern"><div class="card-top"><span class="chip"><i data-g="star"></i></span><span class="tag">Tasting menu</span></div><h3>JÖRO <span class="badge">Celebration</span></h3><p>Scandi-Japanese cooking with a Michelin Plate, in a converted paper mill.</p><p class="addr">Oughtibridge Mill · S35 0LB · ~25 min drive</p></article>
+        </div>
+      </div>
+    </section>
+
+    <!-- WALKS -->
+    <section class="page" data-name="walks" data-label="Walks" data-blurb="The Porter Valley on your doorstep" data-g="tree" data-t="t-moss" hidden>
+      <div class="scene" data-scene="walks" aria-hidden="true"></div>
+      <div class="page-body">
+        <p class="eyebrow">Chapter 4</p>
+        <h2>The Porter Valley</h2>
+        <p class="lead">The best thing about staying here is the wooded path along the Porter Brook, a few minutes from the door. It's flat and gentle, so it suits children, buggies and dogs.</p>
+        <figure class="wide hero"><img src="images/porter-valley.jpg" alt="The Porter Brook flowing through Whiteley Woods" loading="lazy" decoding="async"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Porter_Brook_in_Whiteley_Woods_-_geograph.org.uk_-_4737366.jpg" target="_blank" rel="noopener">Photo: Graham Hogg · CC BY-SA 2.0</a></figcaption></figure>
+        <div class="map" role="img" aria-label="Map of the Porter Valley walk from Endcliffe Park past Bingham Park, Shepherd Wheel and Forge Dam up to Ringinglow, with Nether Green just above the valley.">
+          <svg viewBox="0 0 1000 330">
+            <path d="M780 330 C820 230 900 170 1000 150 L1000 330 Z" fill="var(--heather)" opacity=".18"/>
+            <text x="985" y="300" text-anchor="end" class="small">Peak District edge</text>
+            <path d="M40 250 Q150 250 250 195 T430 200 T640 150 T940 80" fill="none" stroke="var(--hill1)" stroke-width="26" stroke-linecap="round"/>
+            <path d="M40 250 Q150 250 250 195 T430 200 T640 150 T940 80" fill="none" stroke="var(--brook)" stroke-width="7" stroke-linecap="round"/>
+            <path d="M40 250 Q150 250 250 195 T430 200 T640 150 T940 80" fill="none" stroke="var(--paper)" stroke-width="2" stroke-dasharray="2 14" stroke-linecap="round"/>
+            <g fill="var(--tree2)"><circle cx="300" cy="160" r="13"/><circle cx="330" cy="150" r="10"/><circle cx="520" cy="232" r="12"/><circle cx="548" cy="240" r="9"/><circle cx="700" cy="110" r="12"/><circle cx="380" cy="238" r="10"/><circle cx="160" cy="215" r="10"/><circle cx="820" cy="80" r="10"/></g>
+            <path d="M430 92 L430 182" stroke="var(--heather)" stroke-width="3" stroke-dasharray="6 7"/>
+            <g transform="translate(408 38)"><path d="M22 0 L46 20 L-2 20 Z" fill="var(--roof)"/><rect x="4" y="20" width="36" height="28" fill="var(--wall)" stroke="var(--trunk)" stroke-width="1.5"/><rect x="18" y="32" width="9" height="16" fill="var(--trunk)"/></g>
+            <text x="470" y="58">You're here</text>
+            <text x="470" y="80" class="small">Nether Green · a few minutes' walk down</text>
+            <g stroke="var(--paper)" stroke-width="4">
+              <circle cx="40" cy="250" r="11" fill="var(--moss)"/><circle cx="250" cy="195" r="11" fill="var(--moss)"/><circle cx="430" cy="200" r="11" fill="var(--sun)"/><circle cx="640" cy="150" r="11" fill="var(--moss)"/><circle cx="940" cy="80" r="11" fill="var(--heather)"/>
+            </g>
+            <text x="30" y="292">Endcliffe Park</text><text x="30" y="312" class="small">Café · playground</text>
+            <text x="200" y="246">Bingham Park</text>
+            <text x="400" y="246">Shepherd Wheel</text><text x="400" y="266" class="small">Working water wheel</text>
+            <text x="610" y="196">Forge Dam</text><text x="610" y="216" class="small">Café · mill pond</text>
+            <text x="960" y="44" text-anchor="end">Ringinglow</text><text x="900" y="122" text-anchor="end" class="small">Norfolk Arms</text>
+          </svg>
+        </div>
+        <div class="cards">
+          <article class="card has-photo t-moss"><figure class="photo"><img src="images/endcliffe.jpg" alt="Endcliffe Park" loading="lazy" decoding="async"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Endcliffe_Park,_Sheffield.jpg" target="_blank" rel="noopener">Photo: Shanerounce · CC BY-SA 4.0</a></figcaption></figure><div class="card-top"><span class="chip"><i data-g="tree"></i></span><span class="tag">Park</span></div><h3>Endcliffe Park</h3><p>A big park with a café and playground, and the start of the valley walk.</p><p class="addr">Rustlings Road · S11 7AB</p></article>
+          <article class="card has-photo t-brook"><figure class="photo"><img src="images/shepherd-wheel.jpg" alt="Shepherd Wheel" loading="lazy" decoding="async"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Shepherd_Wheel.JPG" target="_blank" rel="noopener">Photo: Warofdreams · CC BY-SA 3.0</a></figcaption></figure><div class="card-top"><span class="chip"><i data-g="wheel"></i></span><span class="tag">Heritage</span></div><h3>Shepherd Wheel</h3><p>One of Sheffield's oldest water-powered grinding workshops, still turning. Open on some weekends.</p><p class="addr">Whiteley Woods</p></article>
+          <article class="card has-photo t-sun"><figure class="photo"><img src="images/forge-dam-2.jpg" alt="Forge Dam" loading="lazy" decoding="async"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Forge_Dam_Park,_Sheffield_-_geograph.org.uk_-_5663043.jpg" target="_blank" rel="noopener">Photo: Ian S · CC BY-SA 2.0</a></figcaption></figure><div class="card-top"><span class="chip"><i data-g="cup"></i></span><span class="tag">Café stop</span></div><h3>Forge Dam</h3><p>A mill pond, playground and café, with views over the Mayfield Valley.</p><p class="addr">Fulwood</p></article>
+          <article class="card has-photo t-heather"><figure class="photo"><img src="images/ringinglow.jpg" alt="Ringinglow" loading="lazy" decoding="async"><figcaption><a href="https://commons.wikimedia.org/wiki/File:The_Norfolk_arms_in_Ringinglow._-_geograph.org.uk_-_5878526.jpg" target="_blank" rel="noopener">Photo: steven ruffles · CC BY-SA 2.0</a></figcaption></figure><div class="card-top"><span class="chip"><i data-g="peak"></i></span><span class="tag">Keep climbing</span></div><h3>Ringinglow</h3><p>Carry on uphill to the edge of the Peak District, Mayfield Alpacas and the Norfolk Arms.</p><p class="addr">Ringinglow Road</p></article>
+        </div>
+        <p class="hint"><strong>Our favourite loop:</strong> take a bus or taxi to Endcliffe Park, walk up the valley to Forge Dam for tea, then stroll back up to Nether Green. Keen walkers can follow the whole 15-mile <a href="https://welcometosheffield.co.uk/content/articles/sheffield-round-walk/" target="_blank" rel="noopener">Sheffield Round Walk</a>.</p>
+      </div>
+    </section>
+
+    <!-- SIGHTS -->
+    <section class="page" data-name="sights" data-label="Sights" data-blurb="Museums, gardens and theatres" data-g="museum" data-t="t-brook" hidden>
+      <div class="scene" data-scene="sights" aria-hidden="true"></div>
+      <div class="page-body">
+        <p class="eyebrow">Chapter 5</p>
+        <h2>Things to see in Sheffield</h2>
+        <p class="lead">Most of Sheffield's museums and gardens are free. Several close on Mondays, so check before you set off.</p>
+        <div class="cards">
+          <article class="card has-photo t-fern"><figure class="photo"><img src="images/botanical.jpg" alt="Botanical Gardens" loading="lazy" decoding="async"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Glass_Pavilions,_Botanical_Gardens,_Sheffield_-_geograph.org.uk_-_1927449.jpg" target="_blank" rel="noopener">Photo: Graham Hogg · CC BY-SA 2.0</a></figcaption></figure><div class="card-top"><span class="chip"><i data-g="flower"></i></span><span class="tag">Free</span></div><h3>Botanical Gardens</h3><p>19 acres of gardens and restored Victorian glass pavilions.</p><p class="addr">Clarkehouse Road · ~10 min drive</p></article>
+          <article class="card has-photo t-heather"><figure class="photo"><img src="images/millennium.jpg" alt="Millennium Gallery" loading="lazy" decoding="async"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Millennium_Gallery,_Sheffield_-_geograph.org.uk_-_3986036.jpg" target="_blank" rel="noopener">Photo: Dave Pickersgill · CC BY-SA 2.0</a></figcaption></figure><div class="card-top"><span class="chip"><i data-g="museum"></i></span><span class="tag">Free</span></div><h3>Millennium Gallery</h3><p>Art and design, plus Sheffield's famous metalwork and cutlery collections.</p><p class="addr">City centre</p></article>
+          <article class="card has-photo t-moss"><figure class="photo"><img src="images/winter-garden.jpg" alt="Winter Garden" loading="lazy" decoding="async"><figcaption><a href="https://commons.wikimedia.org/wiki/File:The_Winter_Garden,_Sheffield_-_geograph.org.uk_-_4768869.jpg" target="_blank" rel="noopener">Photo: Ian S · CC BY-SA 2.0</a></figcaption></figure><div class="card-top"><span class="chip"><i data-g="tree"></i></span><span class="tag">Free</span></div><h3>Winter Garden</h3><p>One of the largest temperate glasshouses in the UK, right next door to the gallery.</p><p class="addr">City centre</p></article>
+          <article class="card has-photo t-sun"><figure class="photo"><img src="images/kelham-museum.jpg" alt="Kelham Island Museum" loading="lazy" decoding="async"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Kelham_Island_Museum.JPG" target="_blank" rel="noopener">Photo: Warofdreams · CC BY-SA 3.0</a></figcaption></figure><div class="card-top"><span class="chip"><i data-g="wheel"></i></span><span class="tag">Free · closed Mon</span></div><h3>Kelham Island Museum</h3><p>The story of Sheffield steel, including the giant River Don steam engine.</p><p class="addr">Kelham Island</p></article>
+          <article class="card has-photo t-brook"><figure class="photo"><img src="images/weston-park.jpg" alt="Weston Park Museum" loading="lazy" decoding="async"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Weston_Park_Museum.jpg" target="_blank" rel="noopener">Photo: Nottingham311 · CC BY-SA 4.0</a></figcaption></figure><div class="card-top"><span class="chip"><i data-g="museum"></i></span><span class="tag">Free</span></div><h3>Weston Park Museum</h3><p>Natural history, archaeology and local history. Great for families.</p><p class="addr">Weston Park · near the university</p></article>
+          <article class="card has-photo t-heather"><figure class="photo"><img src="images/crucible.jpg" alt="Crucible &amp; Lyceum" loading="lazy" decoding="async"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Crucible_Theatre,_Sheffield_(geograph_6573355).jpg" target="_blank" rel="noopener">Photo: Oliver Mills · CC BY-SA 2.0</a></figcaption></figure><div class="card-top"><span class="chip"><i data-g="theatre"></i></span><span class="tag">Tickets</span></div><h3>Crucible &amp; Lyceum</h3><p>Big touring shows and home-grown theatre. The Crucible also hosts the World Snooker Championship every spring.</p><p class="addr">City centre</p></article>
+          <article class="card has-photo t-fern"><figure class="photo"><img src="images/peace-gardens.jpg" alt="Peace Gardens &amp; Cathedral" loading="lazy" decoding="async"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Peace_Gardens,_Sheffield_-_geograph.org.uk_-_725266.jpg" target="_blank" rel="noopener">Photo: Stephen McKay · CC BY-SA 2.0</a></figcaption></figure><div class="card-top"><span class="chip"><i data-g="flower"></i></span><span class="tag">Free</span></div><h3>Peace Gardens &amp; Cathedral</h3><p>Fountains, the Town Hall and the cathedral, all a short stroll apart.</p><p class="addr">City centre</p></article>
+          <article class="card has-photo t-moss"><figure class="photo"><img src="images/abbeydale.jpg" alt="Abbeydale Industrial Hamlet" loading="lazy" decoding="async"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Abbeydale_Industrial_Hamlet_-_geograph.org.uk_-_2425560.jpg" target="_blank" rel="noopener">Photo: Ashley Dace · CC BY-SA 2.0</a></figcaption></figure><div class="card-top"><span class="chip"><i data-g="wheel"></i></span><span class="tag">Check opening</span></div><h3>Abbeydale Industrial Hamlet</h3><p>A restored 18th-century scythe works with water wheels.</p><p class="addr">Abbeydale Road South · ~10 min drive</p></article>
+        </div>
+      </div>
+    </section>
+
+    <!-- PEAK -->
+    <section class="page" data-name="peak" data-label="Peak District" data-blurb="Moors, edges and villages" data-g="peak" data-t="t-heather" hidden>
+      <div class="scene" data-scene="peak" aria-hidden="true"></div>
+      <div class="page-body">
+        <p class="eyebrow">Chapter 6</p>
+        <h2>Into the Peak District</h2>
+        <p class="lead">Nether Green sits on the Peak District side of Sheffield, so open moorland is about 20 minutes away. Without a car, the 272 bus runs from Sheffield to Hathersage and Castleton.</p>
+        <div class="drives" role="list" aria-label="Approximate drive times from the house">
+          <div class="drive" role="listitem"><span>Burbage &amp; Higger Tor</span><div class="bar"><i style="--m:20">20 min</i></div></div>
+          <div class="drive" role="listitem"><span>Longshaw &amp; Padley Gorge</span><div class="bar"><i style="--m:20">20 min</i></div></div>
+          <div class="drive" role="listitem"><span>Stanage Edge</span><div class="bar"><i style="--m:25">25 min</i></div></div>
+          <div class="drive" role="listitem"><span>Hathersage</span><div class="bar"><i style="--m:25">25 min</i></div></div>
+          <div class="drive" role="listitem"><span>Ladybower Reservoir</span><div class="bar"><i style="--m:30">30 min</i></div></div>
+          <div class="drive" role="listitem"><span>Castleton</span><div class="bar"><i style="--m:35">35 min</i></div></div>
+          <div class="drive" role="listitem"><span>Chatsworth House</span><div class="bar"><i style="--m:35">35 min</i></div></div>
+          <div class="drive" role="listitem"><span>Bakewell</span><div class="bar"><i style="--m:40">40 min</i></div></div>
+          <div class="axis" aria-hidden="true"><span></span><div><span>0</span><span>15</span><span>30</span><span>45 min</span></div></div>
+        </div>
+        <div class="cards">
+          <article class="card has-photo t-heather"><figure class="photo"><img src="images/burbage.jpg" alt="Burbage &amp; Higger Tor" loading="lazy" decoding="async"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Walkers_on_Higger_Tor_-_geograph.org.uk_-_3820081.jpg" target="_blank" rel="noopener">Photo: Neil Theasby · CC BY-SA 2.0</a></figcaption></figure><div class="card-top"><span class="chip"><i data-g="peak"></i></span><span class="tag">Easy first taste</span></div><h3>Burbage &amp; Higger Tor</h3><p>Short moorland walks with huge views.</p><p class="addr">Ringinglow Road, west</p></article>
+          <article class="card has-photo t-moss"><figure class="photo"><img src="images/longshaw.jpg" alt="Longshaw &amp; Padley Gorge" loading="lazy" decoding="async"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Padley_Gorge,_waterfalls_1.jpg" target="_blank" rel="noopener">Photo: AndyScott · CC0</a></figcaption></figure><div class="card-top"><span class="chip"><i data-g="tree"></i></span><span class="tag">National Trust</span></div><h3>Longshaw &amp; Padley Gorge</h3><p>Woodland, a café, and a walk alongside a tumbling stream.</p><p class="addr">Near Grindleford</p></article>
+          <article class="card has-photo t-brook"><figure class="photo"><img src="images/stanage.jpg" alt="Stanage Edge" loading="lazy" decoding="async"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Stanage_Edge_(H).jpg" target="_blank" rel="noopener">Photo: Vicky van Dal · CC BY-SA 4.0</a></figcaption></figure><div class="card-top"><span class="chip"><i data-g="peak"></i></span><span class="tag">Iconic</span></div><h3>Stanage Edge</h3><p>The Peak's most famous gritstone edge. Watch the climbers.</p><p class="addr">Above Hathersage</p></article>
+          <article class="card has-photo t-sun"><figure class="photo"><img src="images/hathersage.jpg" alt="Hathersage" loading="lazy" decoding="async"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Hathersage_view_-_geograph.org.uk_-_3134859.jpg" target="_blank" rel="noopener">Photo: Andrew Hill · CC BY-SA 2.0</a></figcaption></figure><div class="card-top"><span class="chip"><i data-g="cup"></i></span><span class="tag">Village</span></div><h3>Hathersage</h3><p>An outdoor swimming pool, cafés, and Little John's grave.</p><p class="addr">Hope Valley</p></article>
+          <article class="card has-photo t-fern"><figure class="photo"><img src="images/castleton.jpg" alt="Castleton" loading="lazy" decoding="async"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Castleton_from_the_path_to_Cave_Dale_-_Derbyshire_-_geograph.org.uk_-_3806000.jpg" target="_blank" rel="noopener">Photo: Martin Richard Phelan · CC BY-SA 2.0</a></figcaption></figure><div class="card-top"><span class="chip"><i data-g="peak"></i></span><span class="tag">Caves &amp; castle</span></div><h3>Castleton</h3><p>Show caves, Peveril Castle and the Mam Tor ridge walk.</p><p class="addr">Hope Valley</p></article>
+          <article class="card has-photo t-heather"><figure class="photo"><img src="images/chatsworth.jpg" alt="Chatsworth House" loading="lazy" decoding="async"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Chatsworth_house.jpg" target="_blank" rel="noopener">Photo: Rprof · CC BY-SA 3.0</a></figcaption></figure><div class="card-top"><span class="chip"><i data-g="museum"></i></span><span class="tag">Book ahead</span></div><h3>Chatsworth House</h3><p>A stately home with famous gardens and a farm shop.</p><p class="addr">Near Baslow</p></article>
+        </div>
+        <p class="hint">Weather on the moors changes fast. Bring a waterproof and proper shoes, even in summer.</p>
+      </div>
+    </section>
+
+    <!-- ESSENTIALS -->
+    <section class="page" data-name="essentials" data-label="Essentials" data-blurb="Health, shops and emergencies" data-g="cross" data-t="t-sun" hidden>
+      <div class="scene" data-scene="essentials" aria-hidden="true"></div>
+      <div class="page-body">
+        <p class="eyebrow">Chapter 7</p>
+        <h2>Everyday essentials</h2>
+        <div class="big">
+          <div class="card t-heather"><strong>999</strong><div><h3>Emergency</h3><p>Police, fire or ambulance.</p></div></div>
+          <div class="card t-brook"><strong>111</strong><div><h3>NHS 111</h3><p>Urgent, but not an emergency.</p></div></div>
+        </div>
+        <div class="cards">
+          <article class="card t-moss"><div class="card-top"><span class="chip"><i data-g="cross"></i></span><span class="tag">Walk-in</span></div><h3>Minor injuries</h3><p>Minor Injuries Unit at the Royal Hallamshire Hospital.</p><p class="addr">Glossop Road</p></article>
+          <article class="card t-heather"><div class="card-top"><span class="chip"><i data-g="cross"></i></span><span class="tag">Adults</span></div><h3>A&amp;E</h3><p>Northern General Hospital.</p><p class="addr">Herries Road</p></article>
+          <article class="card t-sun"><div class="card-top"><span class="chip"><i data-g="cross"></i></span><span class="tag">Children</span></div><h3>Children's A&amp;E</h3><p>Sheffield Children's Hospital.</p><p class="addr">Western Bank</p></article>
+          <article class="card t-fern"><div class="card-top"><span class="chip"><i data-g="cart"></i></span><span class="tag">Supermarkets</span></div><h3>Big shop</h3><p>Sainsbury's on Archer Road and Waitrose on Ecclesall Road, each about 10 minutes by car.</p><p class="addr">Ecclesall Road area</p></article>
+          <article class="card t-brook"><div class="card-top"><span class="chip"><i data-g="cup"></i></span><span class="tag">Local</span></div><h3>Shops &amp; cafés</h3><p>Fulwood Road in Ranmoor and Broomhill, and Sharrow Vale Road for independents.</p><p class="addr">10–30 min walk</p></article>
+        </div>
+        <p class="sources">Sources: <a href="https://sheffield.camra.org.uk/2026/03/pub-of-the-year-2026-west-sheffield/" target="_blank" rel="noopener">Sheffield CAMRA</a> · <a href="https://welcometosheffield.co.uk/content/articles/sheffield-round-walk/" target="_blank" rel="noopener">Welcome to Sheffield</a> · <a href="https://yorkshirefoodguide.co.uk/blog/restaurants-ecclesall-road-sheffield/" target="_blank" rel="noopener">Yorkshire Food Guide</a> · <a href="https://bustimes.org/stops/370020646" target="_blank" rel="noopener">bustimes.org</a>. Photos from Wikimedia Commons and Geograph, credited on each image. Opening times change, so check before you go. Updated November 2026.</p>
+      </div>
+    </section>
+  </main>
+
+  <div class="pager">
+    <button class="pbtn" id="prev" type="button" aria-label="Previous page"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg><span class="lbl">Back</span></button>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:6px;min-width:0"><div class="dots" id="dots"></div><span class="count" id="count"></span></div>
+    <button class="pbtn" id="next" type="button" aria-label="Next page"><span class="lbl">Next</span><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button>
+  </div>
+</div>
+
+<script>
+(function(){
+  const G={
+    fork:'<path d="M7 3v8M5 3v5a2 2 0 0 0 4 0V3M7 11v10"/><path d="M17 3c-2.5 2-2.5 7 0 9v9"/>',
+    pint:'<path d="M6 4h11l-1.4 16H7.4z"/><path d="M6.4 8.5h10.2"/><path d="M17 9h1.5a2.5 2.5 0 0 1 0 5H16.5"/>',
+    cup:'<path d="M5 9h11v4a5 5 0 0 1-5 5h-1a5 5 0 0 1-5-5z"/><path d="M16 10.5h1.5a2.2 2.2 0 0 1 0 4.4H15.6"/><path d="M9 3c0 1.6 1.6 1.6 1.6 3.4M12.6 3c0 1.6 1.6 1.6 1.6 3.4"/><path d="M4 21h14"/>',
+    tree:'<path d="M12 3l5.5 8H14l4.5 6.5h-13L10 11H6.5z"/><path d="M12 17.5V21"/>',
+    bus:'<rect x="5" y="3" width="14" height="15" rx="2.5"/><path d="M5 11h14M8 18v3M16 18v3"/><circle cx="8.5" cy="14.5" r=".6"/><circle cx="15.5" cy="14.5" r=".6"/>',
+    train:'<rect x="6" y="3" width="12" height="14" rx="3"/><path d="M6 10h12M9 21l1.2-4M15 21l-1.2-4"/>',
+    car:'<path d="M4 16l2-6.5h12l2 6.5v2.5H4z"/><circle cx="8" cy="18.5" r="1.6"/><circle cx="16" cy="18.5" r="1.6"/><path d="M7 13h10"/>',
+    boot:'<path d="M7 3h5v8l6 3a2 2 0 0 1 1.2 1.8V19H7z"/><path d="M7 15.5h12"/>',
+    museum:'<path d="M3 9l9-5 9 5z"/><path d="M5.5 9v9M9.5 9v9M14.5 9v9M18.5 9v9M3 20.5h18"/>',
+    wheel:'<circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="2"/><path d="M12 4v6M12 14v6M4 12h6M14 12h6M6.3 6.3l4.3 4.3M13.4 13.4l4.3 4.3M17.7 6.3l-4.3 4.3M10.6 13.4l-4.3 4.3"/>',
+    peak:'<path d="M2.5 19.5l6.5-11 4 6.2 2.6-3.8 5.9 8.6z"/><path d="M7.4 11.3l1.6 1.5 1.4-1.4"/>',
+    cross:'<path d="M9 3.5h6v5.5h5.5v6H15v5.5H9V15H3.5V9H9z"/>',
+    cart:'<path d="M3 4h3l2.2 11h10.6L21 7.5H7"/><circle cx="9.5" cy="19" r="1.5"/><circle cx="17.5" cy="19" r="1.5"/>',
+    theatre:'<path d="M4 4h16v6a8 8 0 0 1-16 0z"/><path d="M8.5 9h.01M15.5 9h.01M9 13.2c2 1.6 4 1.6 6 0"/>',
+    flower:'<circle cx="12" cy="8.5" r="2.4"/><path d="M12 3.6v2.5M12 10.9v2.5M7.1 8.5h2.5M14.4 8.5h2.5"/><path d="M12 13v8M12 17.5c-3 0-4.2-2-4.2-3.2M12 17.5c3 0 4.2-2 4.2-3.2"/>',
+    home:'<path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/>',wifi:'<path d="M2.5 9a14 14 0 0 1 19 0M5.5 12.5a9.5 9.5 0 0 1 13 0M8.5 16a5 5 0 0 1 7 0"/><circle cx="12" cy="19.5" r="1"/>',flame:'<path d="M12 3c1 3.5 5 5.5 5 10a5 5 0 0 1-10 0c0-2.5 1.5-4 2.5-5 0 2 1 3 2 3 0-3-1-5.5.5-8z"/>',washer:'<rect x="4" y="3" width="16" height="18" rx="2"/><circle cx="12" cy="13" r="4.5"/><path d="M7 6.5h.01M10 6.5h4"/>',bin:'<path d="M4 7h16M9 7V4h6v3M6 7l1 14h10l1-14"/><path d="M10 11v6M14 11v6"/>',tv:'<rect x="3" y="5" width="18" height="12" rx="2"/><path d="M8 21h8M12 17v4"/>',key:'<circle cx="8" cy="15" r="4"/><path d="M11 12l9-9M16 7l3 3M14 9l2 2"/>',bed:'<path d="M3 18V7M3 13h18v5M21 18v-3a3 3 0 0 0-3-3h-8v1"/><circle cx="7" cy="10.5" r="1.8"/>',bolt:'<path d="M13 2L4 14h7l-1 8 9-12h-7z"/>',phone:'<path d="M6 3h4l2 5-3 2a11 11 0 0 0 5 5l2-3 5 2v4a2 2 0 0 1-2 2A17 17 0 0 1 4 5a2 2 0 0 1 2-2z"/>',no:'<circle cx="12" cy="12" r="8.5"/><path d="M6 6l12 12"/>',moon:'<path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/>',paw:'<circle cx="7" cy="10" r="1.8"/><circle cx="10.5" cy="6.5" r="1.8"/><circle cx="14.5" cy="6.5" r="1.8"/><circle cx="18" cy="10" r="1.8"/><path d="M12 12c-3 0-5 3-5 5s2 2.5 5 2.5 5-.5 5-2.5-2-5-5-5z"/>',
+    star:'<path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"/>'
+  };
+  const icon=g=>'<svg viewBox="0 0 24 24" aria-hidden="true">'+(G[g]||'')+'</svg>';
+  document.querySelectorAll('i[data-g]').forEach(el=>{el.outerHTML=icon(el.dataset.g)});
+
+  /* ---------- painted landscape banners ---------- */
+  function rng(seed){return function(){seed|=0;seed=seed+0x6D2B79F5|0;let t=Math.imul(seed^seed>>>15,1|seed);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+  const W=1200,H=260;
+  function ridge(base,amp,f,ph){return x=>base+amp*Math.sin(x*f+ph)+amp*.45*Math.sin(x*f*2.3+ph*1.7)}
+  function hillPath(fn){let d='M0 '+H+' L0 '+fn(0).toFixed(1);for(let x=20;x<=W;x+=20)d+=' L'+x+' '+fn(x).toFixed(1);return d+' L'+W+' '+H+' Z'}
+  function conifer(x,y,s,c){return `<path d="M${x} ${y-46*s} L${x+15*s} ${y-18*s} L${x+8*s} ${y-18*s} L${x+19*s} ${y} L${x-19*s} ${y} L${x-8*s} ${y-18*s} L${x-15*s} ${y-18*s} Z" fill="var(${c})"/>`}
+  function roundTree(x,y,s,c){return `<rect x="${x-2.5*s}" y="${y-16*s}" width="${5*s}" height="${18*s}" fill="var(--trunk)"/><circle cx="${x}" cy="${y-26*s}" r="${17*s}" fill="var(${c})"/><circle cx="${x-10*s}" cy="${y-18*s}" r="${11*s}" fill="var(${c})"/><circle cx="${x+11*s}" cy="${y-19*s}" r="${12*s}" fill="var(${c})"/>`}
+  const SEEDS={home:37,cover:3,around:11,eat:7,further:19,walks:5,sights:23,peak:29,essentials:31};
+  function scene(kind){
+    const r=rng(SEEDS[kind]||1), ph=r()*6;
+    const L1=ridge(120,30,.005,ph), L2=ridge(165,22,.007,ph+2), L3=ridge(212,14,.009,ph+4);
+    let s='';
+    const sunX=kind==='cover'?960:200+r()*800;
+    s+=`<circle cx="${sunX}" cy="62" r="54" fill="var(--sun)" opacity=".18"/><circle cx="${sunX}" cy="62" r="34" fill="var(--sun)"/>`;
+    for(let i=0;i<3;i++){const cx=80+r()*1040,cy=40+r()*50;s+=`<g fill="var(--cloud)"><ellipse cx="${cx}" cy="${cy}" rx="52" ry="15"/><ellipse cx="${cx+26}" cy="${cy-10}" rx="30" ry="14"/><ellipse cx="${cx-24}" cy="${cy-4}" rx="24" ry="11"/></g>`}
+    if(kind==='peak'){
+      s+=`<path d="${hillPath(L1)}" fill="var(--hill1)"/>`;
+      s+=`<path d="M180 260 L260 120 L760 112 L800 150 L840 260 Z" fill="var(--stone)"/><path d="M260 120 L760 112 L770 124 L262 132 Z" fill="var(--wall)" opacity=".7"/>`;
+      for(let x=300;x<760;x+=40)s+=`<path d="M${x} ${128} L${x+6} ${210}" stroke="var(--trunk)" stroke-width="1.5" opacity=".35"/>`;
+      s+=`<path d="${hillPath(L3)}" fill="var(--hill2)"/>`;
+      for(let i=0;i<70;i++){const x=r()*W,y=L3(x)+4+r()*30;s+=`<circle cx="${x.toFixed(0)}" cy="${y.toFixed(0)}" r="${(3+r()*4).toFixed(1)}" fill="var(--heather)" opacity="${(.55+r()*.4).toFixed(2)}"/>`}
+    } else {
+      s+=`<path d="${hillPath(L1)}" fill="var(--hill1)"/>`;
+      if(kind==='sights'){
+        const b=L2(600);
+        s+=`<g fill="var(--stone)"><rect x="380" y="${b-118}" width="46" height="118"/><rect x="440" y="${b-62}" width="70" height="62"/><path d="M700 ${b} Q770 ${b-120} 840 ${b} Z" fill="var(--brook)" opacity=".55"/><path d="M712 ${b} Q770 ${b-96} 828 ${b}" fill="none" stroke="var(--cloud)" stroke-width="3"/><rect x="560" y="${b-52}" width="40" height="52"/><path d="M575 ${b-52} L580 ${b-100} L585 ${b-52} Z"/></g>`;
+        for(let yy=b-108;yy<b-6;yy+=12)s+=`<rect x="388" y="${yy}" width="30" height="4" fill="var(--cloud)" opacity=".7"/>`;
+      }
+      if(kind==='further'){
+        const b=L2(760);
+        s+=`<g fill="var(--trunk)" opacity=".85"><rect x="720" y="${b-130}" width="16" height="130"/><rect x="780" y="${b-104}" width="14" height="104"/><path d="M820 ${b} L820 ${b-40} L850 ${b-60} L850 ${b-40} L880 ${b-60} L880 ${b-40} L910 ${b-60} L910 ${b} Z"/></g><g fill="var(--cloud)" opacity=".8"><circle cx="728" cy="${b-142}" r="10"/><circle cx="742" cy="${b-160}" r="14"/><circle cx="760" cy="${b-182}" r="18"/><circle cx="788" cy="${b-116}" r="8"/><circle cx="800" cy="${b-132}" r="11"/></g>`;
+      }
+      s+=`<path d="${hillPath(L2)}" fill="var(--hill2)"/>`;
+      for(let i=0;i<9;i++){const x=40+r()*1120;s+=conifer(x,L2(x)+4,.55+r()*.25,'--tree2')}
+      if(kind==='walks'){
+        let d='M0 238';for(let x=0;x<=W;x+=30)d+=` L${x} ${(236+6*Math.sin(x*.02)).toFixed(1)}`;
+        s+=`<path d="${hillPath(L3)}" fill="var(--hill3)"/><path d="${d}" fill="none" stroke="var(--brook)" stroke-width="10" stroke-linecap="round"/><path d="${d}" fill="none" stroke="var(--cloud)" stroke-width="2" stroke-dasharray="10 22" opacity=".8"/>`;
+        const wx=860,wy=210;
+        s+=`<rect x="${wx+18}" y="${wy-40}" width="70" height="44" fill="var(--wall)" stroke="var(--trunk)" stroke-width="2"/><path d="M${wx+12} ${wy-40} L${wx+53} ${wy-66} L${wx+94} ${wy-40} Z" fill="var(--roof)"/><g stroke="var(--trunk)" stroke-width="4" fill="none"><circle cx="${wx}" cy="${wy}" r="30"/><path d="M${wx-30} ${wy} H${wx+30} M${wx} ${wy-30} V${wy+30} M${wx-21} ${wy-21} L${wx+21} ${wy+21} M${wx+21} ${wy-21} L${wx-21} ${wy+21}"/></g>`;
+      } else {
+        s+=`<path d="${hillPath(L3)}" fill="var(--hill3)"/>`;
+      }
+      if(kind==='around'){
+        let d='M0 250';for(let x=0;x<=W;x+=30)d+=` L${x} ${(L3(x)+22).toFixed(1)}`;
+        s+=`<path d="${d}" fill="none" stroke="var(--stone)" stroke-width="14"/>`;
+        const bx=520,by=L3(540)+14;
+        s+=`<g><rect x="${bx}" y="${by-44}" width="120" height="44" rx="10" fill="var(--brook)"/><rect x="${bx+10}" y="${by-36}" width="22" height="16" rx="3" fill="var(--cloud)"/><rect x="${bx+38}" y="${by-36}" width="22" height="16" rx="3" fill="var(--cloud)"/><rect x="${bx+66}" y="${by-36}" width="22" height="16" rx="3" fill="var(--cloud)"/><rect x="${bx+94}" y="${by-36}" width="18" height="26" rx="3" fill="var(--cloud)"/><circle cx="${bx+26}" cy="${by+2}" r="9" fill="var(--ink)"/><circle cx="${bx+96}" cy="${by+2}" r="9" fill="var(--ink)"/><text x="${bx+60}" y="${by-6}" text-anchor="middle" font-family="DM Mono, monospace" font-size="12" fill="var(--cloud)">120</text></g>`;
+      }
+      if(kind==='cover'||kind==='home'){
+        const hx=470,hy=L3(500)+6;
+        s+=`<rect x="${hx}" y="${hy-60}" width="96" height="62" fill="var(--wall)" stroke="var(--trunk)" stroke-width="2"/><path d="M${hx-12} ${hy-60} L${hx+48} ${hy-104} L${hx+108} ${hy-60} Z" fill="var(--roof)"/><rect x="${hx+70}" y="${hy-112}" width="14" height="30" fill="var(--trunk)"/><rect x="${hx+38}" y="${hy-30}" width="20" height="32" fill="var(--trunk)"/><rect x="${hx+12}" y="${hy-48}" width="18" height="16" fill="var(--sun)"/><rect x="${hx+66}" y="${hy-48}" width="18" height="16" fill="var(--sun)"/><g fill="var(--cloud)" opacity=".75"><circle cx="${hx+80}" cy="${hy-124}" r="7"/><circle cx="${hx+90}" cy="${hy-140}" r="10"/><circle cx="${hx+104}" cy="${hy-160}" r="13"/></g>`;
+        s+=`<path d="M${hx+48} ${hy+2} Q${hx+20} ${hy+30} ${hx-40} ${H}" stroke="var(--stone)" stroke-width="10" fill="none"/>`;
+      }
+      if(kind==='eat'){
+        const px=700,py=L3(700)+4;
+        s+=`<rect x="${px}" y="${py-120}" width="8" height="122" fill="var(--trunk)"/><rect x="${px}" y="${py-120}" width="70" height="7" fill="var(--trunk)"/><path d="M${px+22} ${py-113} v12 M${px+60} ${py-113} v12" stroke="var(--trunk)" stroke-width="2"/><rect x="${px+14}" y="${py-101}" width="54" height="64" rx="6" fill="var(--paper)" stroke="var(--trunk)" stroke-width="3"/><path d="M${px+22} ${py-58} A19 19 0 0 1 ${px+60} ${py-58} Z" fill="var(--sun)"/>`;
+        for(let k=0;k<5;k++){const a=Math.PI+(k+.5)*Math.PI/5;s+=`<path d="M${(px+41+23*Math.cos(a)).toFixed(1)} ${(py-58+23*Math.sin(a)).toFixed(1)} L${(px+41+30*Math.cos(a)).toFixed(1)} ${(py-58+30*Math.sin(a)).toFixed(1)}" stroke="var(--sun)" stroke-width="3" stroke-linecap="round"/>`}
+        s+=`<rect x="${px+22}" y="${py-52}" width="38" height="4" fill="var(--heather)"/>`;
+      }
+      const n=kind==='cover'?14:10;
+      for(let i=0;i<n;i++){
+        let x=30+r()*1140;
+        if((kind==='cover'||kind==='home')&&x>430&&x<620)continue;
+        if(kind==='eat'&&x>660&&x<800)continue;
+        if(kind==='around'&&x>480&&x<680)continue;
+        if(kind==='walks'&&x>800&&x<980)continue;
+        const y=(kind==='walks'?Math.min(L3(x)+12,226):L3(x)+12), sc=.8+r()*.6;
+        s+= r()>.45?roundTree(x,y,sc,r()>.5?'--tree1':'--tree2'):conifer(x,y,sc*1.1,'--tree1');
+      }
+      if(kind!=='walks'){for(let i=0;i<40;i++){const x=r()*W,y=L3(x)+18+r()*30;s+=`<circle cx="${x.toFixed(0)}" cy="${y.toFixed(0)}" r="${(2+r()*2.5).toFixed(1)}" fill="${['var(--sun)','var(--heather)','var(--cloud)'][i%3]}" opacity=".85"/>`}}
+    }
+    return `<svg class="land" viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMax slice" aria-hidden="true">${s}</svg>`;
+  }
+  document.querySelectorAll('.scene').forEach(el=>{el.insertAdjacentHTML('afterbegin',scene(el.dataset.scene))});
+
+  /* ---------- page turning ---------- */
+  const pages=[...document.querySelectorAll('.page')];
+  const names=pages.map(p=>p.dataset.name);
+  const tabs=document.getElementById('tabs'), dots=document.getElementById('dots'), contents=document.getElementById('contents');
+  pages.forEach((p,i)=>{
+    tabs.insertAdjacentHTML('beforeend',`<button class="tab" type="button" data-i="${i}">${p.dataset.label}</button>`);
+    dots.insertAdjacentHTML('beforeend',`<button class="dot" type="button" data-i="${i}" aria-label="Go to ${p.dataset.label}"></button>`);
+    if(i>0)contents.insertAdjacentHTML('beforeend',`<button class="ch ${p.dataset.t}" type="button" data-i="${i}"><span class="chip">${icon(p.dataset.g)}</span><span><span class="num">Chapter ${i}</span><b>${p.dataset.label}</b><small>${p.dataset.blurb}</small></span></button>`);
+  });
+  pages.forEach((p,i)=>{const e=p.querySelector('.eyebrow');if(i>0&&e)e.textContent='Chapter '+i});
+  const book=document.getElementById('book'), prev=document.getElementById('prev'), next=document.getElementById('next'), count=document.getElementById('count');
+  let cur=-1;
+  function show(i,animate){
+    i=Math.max(0,Math.min(pages.length-1,i));
+    if(i===cur)return;
+    const dir=i>cur?'in-next':'in-prev';
+    pages.forEach((p,k)=>{p.hidden=k!==i;p.classList.remove('in-next','in-prev')});
+    if(animate){void pages[i].offsetWidth;pages[i].classList.add(dir)}
+    cur=i;
+    tabs.querySelectorAll('.tab').forEach((t,k)=>t.setAttribute('aria-current',k===i?'true':'false'));
+    dots.querySelectorAll('.dot').forEach((t,k)=>t.setAttribute('aria-current',k===i?'true':'false'));
+    const at=tabs.children[i]; if(at&&at.scrollIntoView)at.scrollIntoView({block:'nearest',inline:'center',behavior:'smooth'});
+    prev.disabled=i===0; next.disabled=i===pages.length-1;
+    count.textContent=(i+1)+' / '+pages.length;
+    if(location.hash.slice(1)!==names[i]){try{history.replaceState(null,'','#'+names[i])}catch(e){}}
+    if(animate&&book.getBoundingClientRect().top<0)book.scrollIntoView({behavior:'smooth',block:'start'});
+  }
+  document.addEventListener('click',e=>{const b=e.target.closest('[data-i]');if(b)show(+b.dataset.i,true)});
+  prev.addEventListener('click',()=>show(cur-1,true));
+  next.addEventListener('click',()=>show(cur+1,true));
+  document.addEventListener('keydown',e=>{if(e.target.closest('input,textarea'))return;if(e.key==='ArrowRight')show(cur+1,true);if(e.key==='ArrowLeft')show(cur-1,true)});
+  let sx=null,sy=null;
+  book.addEventListener('touchstart',e=>{const t=e.touches[0];sx=t.clientX;sy=t.clientY},{passive:true});
+  book.addEventListener('touchend',e=>{if(sx===null)return;const t=e.changedTouches[0],dx=t.clientX-sx,dy=t.clientY-sy;sx=null;if(Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy)*1.5)show(cur+(dx<0?1:-1),true)},{passive:true});
+  function fromHash(){const k=names.indexOf(location.hash.slice(1));show(k<0?0:k,cur!==-1)}
+  window.addEventListener('hashchange',fromHash);
+  fromHash();
+})();
+</script>
+
+</body>
+</html>
