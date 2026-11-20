@@ -193,6 +193,37 @@ figcaption.own{position:absolute;left:10px;bottom:10px;right:auto;max-width:calc
 .help{display:flex;gap:16px;align-items:center;padding:18px 20px;border-radius:18px;background:color-mix(in srgb,var(--moss) 10%,var(--paper));border:1.5px solid color-mix(in srgb,var(--moss) 25%,var(--line))}
 .help h3{margin:0 0 2px;font-size:19px}.help p{margin:0}
 @media (max-width:700px){.arrive{grid-template-columns:1fr}.gallery{grid-template-columns:1fr 1fr;grid-template-rows:auto auto;aspect-ratio:auto}.gallery .g-main{grid-column:span 2;grid-row:auto;aspect-ratio:4/3}.gallery figure:not(.g-main){aspect-ratio:1/1}.cover-photo{aspect-ratio:4/3}}
+
+/* ---------- Feedback chapter ---------- */
+.again{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,330px),1fr));gap:16px;align-items:start}
+.fb{display:flex;flex-direction:column;gap:14px}
+.fb fieldset{border:0;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.fb legend,.fb .lbl{font-weight:700;font-size:15px;padding:0}
+.stars{display:flex;gap:6px;flex-wrap:wrap}
+.stars input{position:absolute;opacity:0;width:1px;height:1px}
+.stars label{width:46px;height:46px;border-radius:14px;display:grid;place-items:center;cursor:pointer;border:1.5px solid var(--line);background:var(--paper);color:var(--muted)}
+.stars label svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linejoin:round}
+.stars label.on{background:color-mix(in srgb,var(--sun) 22%,var(--paper));border-color:var(--sun);color:var(--ink)}
+.stars label.on svg{fill:var(--sun);stroke:var(--sun)}
+.stars input:focus-visible+label{outline:3px solid var(--sun);outline-offset:2px}
+.fb label.fld{display:flex;flex-direction:column;gap:6px;font-weight:600;font-size:15px}
+.fb textarea,.fb input[type=text],.fb input[type=email]{font:inherit;font-weight:400;color:var(--ink);background:var(--paper);border:1.5px solid var(--line);border-radius:12px;padding:10px 12px;width:100%;min-height:46px}
+.fb textarea{min-height:92px;resize:vertical}
+.fb .two{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,180px),1fr));gap:12px}
+.fb .ok{display:flex;gap:10px;align-items:flex-start;font-size:14.5px;color:var(--muted);cursor:pointer}
+.fb .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.btn-g{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:0 22px;border-radius:999px;border:0;background:var(--moss);color:var(--paper);font-weight:700;font-size:16px;text-decoration:none;cursor:pointer;align-self:flex-start}
+.btn-g:disabled{opacity:.6;cursor:wait}
+.btn-o{background:transparent;color:var(--ink);border:1.5px solid var(--line);min-height:44px;padding:0 16px;font-size:15px}
+.fb-status{margin:0;font-size:15px;font-weight:600}
+.fb-status.err{color:var(--heather)}
+.fb-done{display:flex;flex-direction:column;gap:8px}
+.offer{display:flex;flex-direction:column;gap:12px}
+.offer .pct{font-family:var(--font-display);font-size:clamp(34px,6vw,46px);line-height:1;color:var(--moss)}
+.codebox{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.codebox code{font-family:var(--font-mono);font-size:22px;letter-spacing:.08em;padding:8px 14px;border-radius:12px;border:2px dashed color-mix(in srgb,var(--moss) 55%,var(--line));background:var(--paper);user-select:all}
+.offer ul{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:4px;font-size:15px}
+.offer small{color:var(--muted);font-size:14px}
 </style>
 </head>
 <body>
@@ -333,22 +364,22 @@ figcaption.own{position:absolute;left:10px;bottom:10px;right:auto;max-width:calc
 
         <h3 class="sub">Within walking distance</h3>
         <div class="cards">
-          <article class="card t-heather"><div class="card-top"><span class="chip"><i data-g="fork"></i></span><span class="tag">Modern British</span></div><h3>Rafters <span class="badge">Book ahead</span></h3><p>The neighbourhood's best restaurant: 2 AA Rosettes and listed in the Michelin Guide.</p><p class="addr">220 Oakbrook Road · S11 7ED</p></article>
+          <article class="card has-photo t-heather"><figure class="photo"><img src="images/p-rafters.jpg" alt="Shops on Oakbrook Road at Nether Green, where Rafters is" loading="lazy" decoding="async"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Shops_on_Oakbrook_Road_-_geograph.org.uk_-_2174122.jpg" target="_blank" rel="noopener">Photo: Graham Hogg · CC BY-SA 2.0</a></figcaption></figure><div class="card-top"><span class="chip"><i data-g="fork"></i></span><span class="tag">Modern British</span></div><h3>Rafters <span class="badge">Book ahead</span></h3><p>The neighbourhood's best restaurant: 2 AA Rosettes and listed in the Michelin Guide.</p><p class="addr">220 Oakbrook Road · S11 7ED</p></article>
           <article class="card has-photo t-sun"><figure class="photo"><img src="images/rising-sun.jpg" alt="The Rising Sun" loading="lazy" decoding="async"><figcaption><a href="https://commons.wikimedia.org/wiki/File:%22The_Rising_Sun%22_at_Nether_Green,_Sheffield_-_geograph.org.uk_-_2532398.jpg" target="_blank" rel="noopener">Photo: Neil Theasby · CC BY-SA 2.0</a></figcaption></figure><div class="card-top"><span class="chip"><i data-g="pint"></i></span><span class="tag">Pub · Abbeydale tap</span></div><h3>The Rising Sun</h3><p>CAMRA West Sheffield Pub of the Year 2026, with around 11 real ales and good pub food. Kitchen hours are limited, so book.</p><p class="addr">471 Fulwood Road · S10 3QA</p></article>
           <article class="card has-photo t-moss"><figure class="photo"><img src="images/ranmoor-inn.jpg" alt="Ranmoor Inn" loading="lazy" decoding="async"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Ranmoor_Inn,_Fulwood_Road,_Sheffield_-_geograph.org.uk_-_5657251.jpg" target="_blank" rel="noopener">Photo: Ian S · CC BY-SA 2.0</a></figcaption></figure><div class="card-top"><span class="chip"><i data-g="pint"></i></span><span class="tag">Traditional pub</span></div><h3>Ranmoor Inn</h3><p>A small, friendly real-ale local in Ranmoor.</p><p class="addr">330 Fulwood Road · S10 3GD</p></article>
-          <article class="card t-brook"><div class="card-top"><span class="chip"><i data-g="fork"></i></span><span class="tag">Bar &amp; kitchen</span></div><h3>West 10</h3><p>A relaxed spot for drinks and a bite on Fulwood Road.</p><p class="addr">Fulwood Road · Ranmoor</p></article>
+          <article class="card has-photo t-brook"><figure class="photo"><img src="images/p-ranmoor.jpg" alt="Shops on Fulwood Road in Ranmoor" loading="lazy" decoding="async"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Fulwood_Road,_Ranmoor,_Sheffield_-_geograph.org.uk_-_5663773.jpg" target="_blank" rel="noopener">Photo: Ian S · CC BY-SA 2.0</a></figcaption></figure><div class="card-top"><span class="chip"><i data-g="fork"></i></span><span class="tag">Bar &amp; kitchen</span></div><h3>West 10</h3><p>A relaxed spot for drinks and a bite on Fulwood Road.</p><p class="addr">Fulwood Road · Ranmoor</p></article>
           <article class="card has-photo t-fern"><figure class="photo"><img src="images/forge-dam.jpg" alt="Forge Dam Café" loading="lazy" decoding="async"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Forge_Dam_in_Forge_Dam_Park,_Sheffield_-_geograph.org.uk_-_5662916.jpg" target="_blank" rel="noopener">Photo: Ian S · CC BY-SA 2.0</a></figcaption></figure><div class="card-top"><span class="chip"><i data-g="cup"></i></span><span class="tag">Café</span></div><h3>Forge Dam Café</h3><p>Tea and cake by the old mill pond at the top of the Porter Valley walk.</p><p class="addr">Forge Dam · Fulwood</p></article>
         </div>
 
         <h3 class="sub">Ecclesall Road &amp; Sharrow Vale · 10 min by car</h3>
         <div class="strip"><figure class="wide"><img src="images/ecclesall-road.jpg" alt="Ecclesall Road" loading="lazy" decoding="async"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Ecclesall_Road,_Sheffield,_UK.jpg" target="_blank" rel="noopener">Photo: BCDS · CC BY-SA 4.0</a></figcaption></figure><figure class="wide"><img src="images/sharrow-vale.jpg" alt="Sharrow Vale Road" loading="lazy" decoding="async"><figcaption><a href="https://commons.wikimedia.org/wiki/File:A_trendy_corner_on_Sharrow_Vale_Road_Sheffield_-_geograph.org.uk_-_4824302.jpg" target="_blank" rel="noopener">Photo: Steve Fareham · CC BY-SA 2.0</a></figcaption></figure></div>
         <div class="cards">
-          <article class="card t-heather"><div class="card-top"><span class="chip"><i data-g="fork"></i></span><span class="tag">Italian</span></div><h3>Nonna's</h3><p>A Sheffield favourite for more than 30 years.</p><p class="addr">537–541 Ecclesall Road</p></article>
-          <article class="card t-sun"><div class="card-top"><span class="chip"><i data-g="fork"></i></span><span class="tag">Indian</span></div><h3>Ashoka</h3><p>Open since 1967, and once named in The Times' top 10 Indian restaurants.</p><p class="addr">307 Ecclesall Road</p></article>
-          <article class="card t-moss"><div class="card-top"><span class="chip"><i data-g="fork"></i></span><span class="tag">Turkish grill</span></div><h3>Elif Kebab House</h3><p>Skewers cooked over charcoal, with breads made in house.</p><p class="addr">Ecclesall Road</p></article>
-          <article class="card t-brook"><div class="card-top"><span class="chip"><i data-g="fork"></i></span><span class="tag">Mexican</span></div><h3>Pellizco</h3><p>Small, lively and great for sharing plates.</p><p class="addr">Dyson Place · off Sharrow Vale Road</p></article>
-          <article class="card t-fern"><div class="card-top"><span class="chip"><i data-g="cup"></i></span><span class="tag">Café &amp; bakery</span></div><h3>Six and a Half</h3><p>Pastries, coffee and brunch, at two sites.</p><p class="addr">Dyson Place · 507 Ecclesall Road</p></article>
-          <article class="card t-heather"><div class="card-top"><span class="chip"><i data-g="pint"></i></span><span class="tag">Bar</span></div><h3>The Botanical Arms</h3><p>Handy for a drink after a wander round the Botanical Gardens.</p><p class="addr">507 Ecclesall Road · S11 8PR</p></article>
+          <article class="card has-photo t-heather"><figure class="photo"><img src="images/p-ashoka.jpg" alt="Shops on Ecclesall Road in the evening" loading="lazy" decoding="async"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Shops_on_Ecclesall_Road_-_geograph.org.uk_-_4292575.jpg" target="_blank" rel="noopener">Photo: Andrew Tryon · CC BY-SA 2.0</a></figcaption></figure><div class="card-top"><span class="chip"><i data-g="fork"></i></span><span class="tag">Italian</span></div><h3>Nonna's</h3><p>A Sheffield favourite for more than 30 years.</p><p class="addr">537–541 Ecclesall Road</p></article>
+          <article class="card has-photo t-sun"><figure class="photo"><img src="images/p-eccshops.jpg" alt="Shops on Ecclesall Road" loading="lazy" decoding="async"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Shops_on_Ecclesall_Road,_Sheffield_-_geograph.org.uk_-_8102714.jpg" target="_blank" rel="noopener">Photo: Stephen Craven · CC BY-SA 2.0</a></figcaption></figure><div class="card-top"><span class="chip"><i data-g="fork"></i></span><span class="tag">Indian</span></div><h3>Ashoka</h3><p>Open since 1967, and once named in The Times' top 10 Indian restaurants.</p><p class="addr">307 Ecclesall Road</p></article>
+          <article class="card has-photo t-moss"><figure class="photo"><img src="images/p-elif.jpg" alt="Ecclesall Road at Sharrow Vale" loading="lazy" decoding="async"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Ecclesall_Road,_Sharrow_Vale_-_geograph.org.uk_-_4224688.jpg" target="_blank" rel="noopener">Photo: Richard Vince · CC BY-SA 2.0</a></figcaption></figure><div class="card-top"><span class="chip"><i data-g="fork"></i></span><span class="tag">Turkish grill</span></div><h3>Elif Kebab House</h3><p>Skewers cooked over charcoal, with breads made in house.</p><p class="addr">Ecclesall Road</p></article>
+          <article class="card has-photo t-brook"><figure class="photo"><img src="images/p-dyson.jpg" alt="Dyson Place, off Sharrow Vale Road" loading="lazy" decoding="async"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Dyson_Place_-_geograph.org.uk_-_6847776.jpg" target="_blank" rel="noopener">Photo: Graham Hogg · CC BY-SA 2.0</a></figcaption></figure><div class="card-top"><span class="chip"><i data-g="fork"></i></span><span class="tag">Mexican</span></div><h3>Pellizco</h3><p>Small, lively and great for sharing plates.</p><p class="addr">Dyson Place · off Sharrow Vale Road</p></article>
+          <article class="card has-photo t-fern"><figure class="photo"><img src="images/p-sharrow.jpg" alt="Independent shops on Sharrow Vale Road" loading="lazy" decoding="async"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Sharrow_Vale_Road_-_geograph.org.uk_-_1563697.jpg" target="_blank" rel="noopener">Photo: David Rogers · CC BY-SA 2.0</a></figcaption></figure><div class="card-top"><span class="chip"><i data-g="cup"></i></span><span class="tag">Café &amp; bakery</span></div><h3>Six and a Half</h3><p>Pastries, coffee and brunch, at two sites.</p><p class="addr">Dyson Place · 507 Ecclesall Road</p></article>
+          <article class="card has-photo t-heather"><figure class="photo"><img src="images/p-nonnas.jpg" alt="Hunter&#x27;s Bar roundabout on Ecclesall Road" loading="lazy" decoding="async"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Hunter%27s_Bar_Roundabout,_Sheffield_-_geograph.org.uk_-_1927475.jpg" target="_blank" rel="noopener">Photo: Graham Hogg · CC BY-SA 2.0</a></figcaption></figure><div class="card-top"><span class="chip"><i data-g="pint"></i></span><span class="tag">Bar</span></div><h3>The Botanical Arms</h3><p>Handy for a drink after a wander round the Botanical Gardens.</p><p class="addr">507 Ecclesall Road · S11 8PR</p></article>
         </div>
       </div>
     </section>
@@ -362,7 +393,7 @@ figcaption.own{position:absolute;left:10px;bottom:10px;right:auto;max-width:calc
         <p class="lead">Kelham Island, just north of the city centre, is Sheffield's old steelmaking quarter. These days it's where the city goes to eat and drink. It's about 20 minutes by taxi, or take the 120 into town and walk 15 minutes.</p>
         <div class="cards">
           <article class="card t-sun"><div class="card-top"><span class="chip"><i data-g="fork"></i></span><span class="tag">Food hall</span></div><h3>Cutlery Works</h3><p>The largest food hall in the North, with 14 kitchens and 3 bars. Ideal for groups who can't agree.</p><p class="addr">Neepsend Lane · Kelham Island</p></article>
-          <article class="card t-heather"><div class="card-top"><span class="chip"><i data-g="fork"></i></span><span class="tag">Sardinian</span></div><h3>DOMO</h3><p>Award-winning Italian cooking. Its sister bar, Kelu, has a rooftop on the Krynkl containers.</p><p class="addr">Eagle Works · Kelham Island</p></article>
+          <article class="card has-photo t-heather"><figure class="photo"><img src="images/p-domo.jpg" alt="Kelham Square in Kelham Island" loading="lazy" decoding="async"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Kelham_Square,_autumn_2018_-_geograph.org.uk_-_5965203.jpg" target="_blank" rel="noopener">Photo: Basher Eyre · CC BY-SA 2.0</a></figcaption></figure><div class="card-top"><span class="chip"><i data-g="fork"></i></span><span class="tag">Sardinian</span></div><h3>DOMO</h3><p>Award-winning Italian cooking. Its sister bar, Kelu, has a rooftop on the Krynkl containers.</p><p class="addr">Eagle Works · Kelham Island</p></article>
           <article class="card has-photo t-moss"><figure class="photo"><img src="images/fat-cat.jpg" alt="The Fat Cat" loading="lazy" decoding="async"><figcaption><a href="https://commons.wikimedia.org/wiki/File:The_Fat_Cat,_Alma_Street,_Sheffield_-_geograph.org.uk_-_2552448.jpg" target="_blank" rel="noopener">Photo: Ian S · CC BY-SA 2.0</a></figcaption></figure><div class="card-top"><span class="chip"><i data-g="pint"></i></span><span class="tag">Historic pub</span></div><h3>The Fat Cat</h3><p>A Grade II-listed real-ale pub next door to Kelham Island Museum.</p><p class="addr">Kelham Island</p></article>
           <article class="card has-photo t-brook"><figure class="photo"><img src="images/kelham-tavern.jpg" alt="Kelham Island Tavern" loading="lazy" decoding="async"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Kelham_Island_Tavern_-_geograph.org.uk_-_4770329.jpg" target="_blank" rel="noopener">Photo: Ian S · CC BY-SA 2.0</a></figcaption></figure><div class="card-top"><span class="chip"><i data-g="pint"></i></span><span class="tag">Ale house</span></div><h3>Kelham Island Tavern</h3><p>A much-awarded ale house with a lovely beer garden.</p><p class="addr">Kelham Island</p></article>
           <article class="card t-fern"><div class="card-top"><span class="chip"><i data-g="star"></i></span><span class="tag">Tasting menu</span></div><h3>JÖRO <span class="badge">Celebration</span></h3><p>Scandi-Japanese cooking with a Michelin Plate, in a converted paper mill.</p><p class="addr">Oughtibridge Mill · S35 0LB · ~25 min drive</p></article>
@@ -471,15 +502,58 @@ figcaption.own{position:absolute;left:10px;bottom:10px;right:auto;max-width:calc
           <div class="card t-brook"><strong>111</strong><div><h3>NHS 111</h3><p>Urgent, but not an emergency.</p></div></div>
         </div>
         <div class="cards">
-          <article class="card t-moss"><div class="card-top"><span class="chip"><i data-g="cross"></i></span><span class="tag">Walk-in</span></div><h3>Minor injuries</h3><p>Minor Injuries Unit at the Royal Hallamshire Hospital.</p><p class="addr">Glossop Road</p></article>
-          <article class="card t-heather"><div class="card-top"><span class="chip"><i data-g="cross"></i></span><span class="tag">Adults</span></div><h3>A&amp;E</h3><p>Northern General Hospital.</p><p class="addr">Herries Road</p></article>
-          <article class="card t-sun"><div class="card-top"><span class="chip"><i data-g="cross"></i></span><span class="tag">Children</span></div><h3>Children's A&amp;E</h3><p>Sheffield Children's Hospital.</p><p class="addr">Western Bank</p></article>
-          <article class="card t-fern"><div class="card-top"><span class="chip"><i data-g="cart"></i></span><span class="tag">Supermarkets</span></div><h3>Big shop</h3><p>Sainsbury's on Archer Road and Waitrose on Ecclesall Road, each about 10 minutes by car.</p><p class="addr">Ecclesall Road area</p></article>
-          <article class="card t-brook"><div class="card-top"><span class="chip"><i data-g="cup"></i></span><span class="tag">Local</span></div><h3>Shops &amp; cafés</h3><p>Fulwood Road in Ranmoor and Broomhill, and Sharrow Vale Road for independents.</p><p class="addr">10–30 min walk</p></article>
+          <article class="card has-photo t-moss"><figure class="photo"><img src="images/p-hallamshire.jpg" alt="The Royal Hallamshire Hospital on Glossop Road" loading="lazy" decoding="async"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Royal_Hallamshire_Hospital,_Glossop_Road,_Broomhill,_Sheffield_-_1_-_geograph.org.uk_-_3812476.jpg" target="_blank" rel="noopener">Photo: Terry Robinson · CC BY-SA 2.0</a></figcaption></figure><div class="card-top"><span class="chip"><i data-g="cross"></i></span><span class="tag">Walk-in</span></div><h3>Minor injuries</h3><p>Minor Injuries Unit at the Royal Hallamshire Hospital.</p><p class="addr">Glossop Road</p></article>
+          <article class="card has-photo t-heather"><figure class="photo"><img src="images/p-northern.jpg" alt="The original main entrance of the Northern General Hospital" loading="lazy" decoding="async"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Northern_General_Hospital_-_Original_Main_Entrance_-_geograph.org.uk_-_3069649.jpg" target="_blank" rel="noopener">Photo: Terry Robinson · CC BY-SA 2.0</a></figcaption></figure><div class="card-top"><span class="chip"><i data-g="cross"></i></span><span class="tag">Adults</span></div><h3>A&amp;E</h3><p>Northern General Hospital.</p><p class="addr">Herries Road</p></article>
+          <article class="card has-photo t-sun"><figure class="photo"><img src="images/p-childrens.jpg" alt="Sheffield Children&#x27;s Hospital on Western Bank" loading="lazy" decoding="async"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Sheffield_Children%27s_Hospital,_Western_Bank,_Sheffield_-_1_-_geograph.org.uk_-_3784874.jpg" target="_blank" rel="noopener">Photo: Terry Robinson · CC BY-SA 2.0</a></figcaption></figure><div class="card-top"><span class="chip"><i data-g="cross"></i></span><span class="tag">Children</span></div><h3>Children's A&amp;E</h3><p>Sheffield Children's Hospital.</p><p class="addr">Western Bank</p></article>
+          <article class="card has-photo t-fern"><figure class="photo"><img src="images/p-sainsburys.jpg" alt="Sainsbury&#x27;s on Archer Road" loading="lazy" decoding="async"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Sainsbury%27s_Archer_Road_-_geograph.org.uk_-_6311114.jpg" target="_blank" rel="noopener">Photo: Andrew Tatlow · CC BY-SA 2.0</a></figcaption></figure><div class="card-top"><span class="chip"><i data-g="cart"></i></span><span class="tag">Supermarkets</span></div><h3>Big shop</h3><p>Sainsbury's on Archer Road and Waitrose on Ecclesall Road, each about 10 minutes by car.</p><p class="addr">Ecclesall Road area</p></article>
+          <article class="card has-photo t-brook"><figure class="photo"><img src="images/p-broomhill.jpg" alt="Shops on Fulwood Road in Broomhill" loading="lazy" decoding="async"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Shops_on_Fulwood_Road,_Broomhill,_Sheffield_-_geograph.org.uk_-_6999911.jpg" target="_blank" rel="noopener">Photo: Mike Pennington · CC BY-SA 2.0</a></figcaption></figure><div class="card-top"><span class="chip"><i data-g="cup"></i></span><span class="tag">Local</span></div><h3>Shops &amp; cafés</h3><p>Fulwood Road in Ranmoor and Broomhill, and Sharrow Vale Road for independents.</p><p class="addr">10–30 min walk</p></article>
         </div>
         <p class="sources">Sources: <a href="https://sheffield.camra.org.uk/2026/03/pub-of-the-year-2026-west-sheffield/" target="_blank" rel="noopener">Sheffield CAMRA</a> · <a href="https://welcometosheffield.co.uk/content/articles/sheffield-round-walk/" target="_blank" rel="noopener">Welcome to Sheffield</a> · <a href="https://yorkshirefoodguide.co.uk/blog/restaurants-ecclesall-road-sheffield/" target="_blank" rel="noopener">Yorkshire Food Guide</a> · <a href="https://bustimes.org/stops/370020646" target="_blank" rel="noopener">bustimes.org</a>. Photos from Wikimedia Commons and Geograph, credited on each image. Opening times change, so check before you go. Updated November 2026.</p>
       </div>
     </section>
+  
+    <!-- FEEDBACK -->
+    <section class="page" data-name="feedback" data-label="Feedback" data-blurb="Tell us how your stay went" data-g="star" data-t="t-heather" hidden>
+      <div class="scene" data-scene="cover" aria-hidden="true"></div>
+      <div class="page-body">
+        <p class="eyebrow">Chapter 8</p>
+        <h2>Thank you for staying</h2>
+        <p class="lead">We hope Nether Green felt like home. Tell us how it went: what you enjoyed, and anything we could do better. Only we see your answers.</p>
+        <div class="again">
+          <div class="card t-heather">
+            <div class="card-top"><span class="chip"><i data-g="star"></i></span><span class="tag">2 minutes</span></div>
+            <h3>How was your stay?</h3>
+            <form class="fb" id="fb" novalidate>
+              <fieldset>
+                <legend>Your rating</legend>
+                <div class="stars" id="stars"><input type="radio" name="rating" id="r1" value="1"><label for="r1" title="1 star"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"/></svg><span class="hp">1 star</span></label><input type="radio" name="rating" id="r2" value="2"><label for="r2" title="2 stars"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"/></svg><span class="hp">2 stars</span></label><input type="radio" name="rating" id="r3" value="3"><label for="r3" title="3 stars"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"/></svg><span class="hp">3 stars</span></label><input type="radio" name="rating" id="r4" value="4"><label for="r4" title="4 stars"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"/></svg><span class="hp">4 stars</span></label><input type="radio" name="rating" id="r5" value="5"><label for="r5" title="5 stars"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"/></svg><span class="hp">5 stars</span></label></div>
+              </fieldset>
+              <label class="fld">What did you enjoy?<textarea name="liked" id="fb-liked" maxlength="2000"></textarea></label>
+              <label class="fld">What could we do better?<textarea name="improve" id="fb-improve" maxlength="2000"></textarea></label>
+              <div class="two">
+                <label class="fld">Your name <span style="font-weight:400;color:var(--muted)">(optional)</span><input type="text" name="name" id="fb-name" maxlength="80" autocomplete="name"></label>
+                <label class="fld">Email <span style="font-weight:400;color:var(--muted)">(optional, for a reply)</span><input type="email" name="email" id="fb-email" maxlength="120" autocomplete="email"></label>
+              </div>
+              <label class="ok"><input type="checkbox" name="publish" id="fb-publish"> You can quote my comments (first name only).</label>
+              <div class="hp" aria-hidden="true"><label>Leave this empty<input type="text" name="company" id="fb-company" tabindex="-1" autocomplete="off"></label></div>
+              <button class="btn-g" type="submit" id="fb-send">Send feedback</button>
+              <p class="fb-status" id="fb-status" role="status" aria-live="polite"></p>
+            </form>
+            <div class="fb-done" id="fb-done" hidden>
+              <p class="fb-status">Thank you. Your feedback has reached us.</p>
+              <p>Every comment helps us make the next stay better.</p>
+            </div>
+          </div>
+          <div class="card t-moss">
+            <div class="card-top"><span class="chip"><i data-g="home"></i></span><span class="tag">Before you go</span></div>
+            <h3>Reviews help us most</h3>
+            <p>If you enjoyed your stay, a review on Airbnb means a lot to a small host like us, and helps the next guests find Nether Green.</p>
+            <p>Anything that wasn’t right? Tell us here or message us on Airbnb, so we can fix it for next time.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
   </main>
 
   <div class="pager">
@@ -628,5 +702,37 @@ figcaption.own{position:absolute;left:10px;bottom:10px;right:auto;max-width:calc
 })();
 </script>
 
+
+<script>
+/* Feedback: star rating and sending the form */
+(function(){
+  var labels=[].slice.call(document.querySelectorAll('#stars label'));
+  function paint(n){labels.forEach(function(l,i){l.classList.toggle('on',i<n)})}
+  document.querySelectorAll('#stars input').forEach(function(r){r.addEventListener('change',function(){paint(+r.value)})});
+  var started=Date.now();
+  var cc=document.getElementById('copy-code');
+  if(cc)cc.addEventListener('click',function(){
+    var t=document.getElementById('code').textContent;
+    var done=function(){cc.textContent='Copied';setTimeout(function(){cc.textContent='Copy code'},1800)};
+    if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(done,function(){})}
+  });
+  var f=document.getElementById('fb'); if(!f)return;
+  var st=document.getElementById('fb-status'), btn=document.getElementById('fb-send');
+  f.addEventListener('submit',function(e){
+    e.preventDefault();
+    var rating=(f.querySelector('input[name=rating]:checked')||{}).value;
+    var liked=f.liked.value.trim(), improve=f.improve.value.trim();
+    if(!rating&&!liked&&!improve){st.className='fb-status err';st.textContent='Choose a star rating or write a comment first.';return}
+    btn.disabled=true;st.className='fb-status';st.textContent='Sending…';
+    fetch('https://crestsoftproperties.com/api/feedback',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({
+      property:'nethergreen',source:'airbnb-guide',rating:rating?+rating:null,liked:liked,improve:improve,
+      name:f.name.value.trim(),email:f.email.value.trim(),publish:f.publish.checked,company:f.company.value,elapsed:Date.now()-started
+    })}).then(function(r){return r.json().catch(function(){return {}}).then(function(j){
+      if(!r.ok)throw new Error(j.error||'Something went wrong.');
+      f.hidden=true;document.getElementById('fb-done').hidden=false;
+    })}).catch(function(err){btn.disabled=false;st.className='fb-status err';st.textContent=(err&&err.message)||'Something went wrong. Please try again.'});
+  });
+})();
+</script>
 </body>
 </html>
